@@ -165,7 +165,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach (session('users') as $user)
-                                                @if ($user->id != $reference->id && $user->client->main->count() == 0)
+                                                @if ($user->id != $reference->id && $user->client->main->count() == 0 && $user->client->active != 1)
                                                     <tr>
                                                         <td>{{ $user->username }}</td>
                                                         <td>{{ $user->name }} {{ $user->first_surname }}
