@@ -8,6 +8,9 @@
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <h4 class="card-title ">
+                                <a href="{{ route('references.index') }}" title="Regresar a la lista" class="h4">
+                                    <i class="tim-icons icon-minimal-left"></i>
+                                </a>
                                 {{ __('Clientes referenciando a:') }}
                                 <strong>{{ $reference->name }} {{ $reference->first_surname }}
                                     {{ $reference->second_surname }}</strong>

@@ -28,7 +28,7 @@ beneficio')])
                                         <th>{{ __('Nombre') }}</th>
                                         <th>{{ __('Apellidos') }}</th>
                                         <th>{{ __('Email') }}</th>
-                                        <th>{{ __('Teléfono') }}</th>
+                                        <th>{{ __('Puntos por beneficio') }}</th>
                                         <th>{{ __('Benefactores') }}</th>
                                         <th class="text-right">{{ __('Acciones') }}</th>
                                     </thead>
@@ -40,7 +40,7 @@ beneficio')])
                                                 <td>{{ $client->user->first_surname }}
                                                     {{ $client->user->second_surname }}</td>
                                                 <td>{{ $client->user->email }}</td>
-                                                <td>{{ $client->user->phone }}</td>
+                                                <td>{{ $client->user->qrs->sum('points') }}</td>
                                                 <td>{{ $client->user->hosts->count() }}</td>
                                                 </td>
                                                 <td class="td-actions text-right">

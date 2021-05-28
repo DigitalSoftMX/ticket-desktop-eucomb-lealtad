@@ -11,7 +11,12 @@
                         @method('post')
                         <div class="card">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title ">{{ __('Buscar Clientes') }}</h4>
+                                <h4 class="card-title ">
+                                    <a href="{{ route('references.index') }}" title="Regresar a la lista" class="h4">
+                                        <i class="tim-icons icon-minimal-left"></i>
+                                    </a>
+                                    {{ __('Buscar Clientes') }}
+                                </h4>
                                 <p class="card-category">
                                     {{ __('Aquí puedes buscar a los proximos clientes a referir.') }}</p>
                             </div>
@@ -99,7 +104,12 @@
                     <div class="col-md-9 mx-auto d-block mt-3">
                         <div class="card">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title ">{{ __('Clientes') }}</h4>
+                                <h4 class="card-title ">
+                                    <a href="{{ route('references.index') }}" title="Regresar a la lista" class="h4">
+                                        <i class="tim-icons icon-minimal-left"></i>
+                                    </a>
+                                    {{ __('Clientes') }}
+                                </h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -113,27 +123,29 @@
                                         </thead>
                                         <tbody>
                                             @foreach (session('users') as $user)
-                                                <tr>
-                                                    <td>{{ $user->username }}</td>
-                                                    <td>{{ $user->name }} {{ $user->first_surname }}
-                                                        {{ $user->second_surname }}</td>
-                                                    <td>{{ $user->email }}</td>
-                                                    <td class="td-actions text-right">
-                                                        <form action="{{ route('references.update', $user) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('put')
-                                                            <button type="button"
-                                                                class="btn btn-{{ $user->client->active == 0 ? 'success' : 'danger' }} btn-link"
-                                                                data-original-title="" title=""
-                                                                onclick="confirm('{{ __('¿Estás seguro de que deseas ' . ($user->client->active == 0 ? 'activar' : 'desactivar') . ' este cliente?') }}') ? this.parentElement.submit() : ''">
-                                                                <span class="material-icons-outlined">
-                                                                    {{ $user->client->active == 0 ? 'done_outline' : 'close' }}
-                                                                </span>
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
+                                                @if ($user->client->main->count() == 0)
+                                                    <tr>
+                                                        <td>{{ $user->username }}</td>
+                                                        <td>{{ $user->name }} {{ $user->first_surname }}
+                                                            {{ $user->second_surname }}</td>
+                                                        <td>{{ $user->email }}</td>
+                                                        <td class="td-actions text-right">
+                                                            <form action="{{ route('references.update', $user) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('put')
+                                                                <button type="button"
+                                                                    class="btn btn-{{ $user->client->active == 0 ? 'success' : 'danger' }} btn-link"
+                                                                    data-original-title="" title=""
+                                                                    onclick="confirm('{{ __('¿Estás seguro de que deseas ' . ($user->client->active == 0 ? 'activar' : 'desactivar') . ' este cliente?') }}') ? this.parentElement.submit() : ''">
+                                                                    <span class="material-icons-outlined">
+                                                                        {{ $user->client->active == 0 ? 'done_outline' : 'close' }}
+                                                                    </span>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>

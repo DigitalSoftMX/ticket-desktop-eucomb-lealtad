@@ -5,6 +5,7 @@ namespace App;
 use App\Web\AdminStation;
 use App\Web\Client;
 use App\Web\Dispatcher;
+use App\Web\SalesQr;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -36,6 +37,11 @@ class User extends Authenticatable
     public function hosts()
     {
         return $this->belongsToMany(Client::class, 'user_client');
+    }
+    // Relación con los qr's por beneficio
+    public function qrs()
+    {
+        return $this->hasMany(SalesQr::class, 'main_id', 'id');
     }
     // funcion que pregunta si el rol esta autorizado
     public function authorizeRoles($roles)
