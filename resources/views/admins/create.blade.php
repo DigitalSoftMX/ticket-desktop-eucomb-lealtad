@@ -1,4 +1,4 @@
-_admin@extends('layouts.app', ['pageSlug' => 'Administradores', 'titlePage' => __('Gestión de administradores')])
+@extends('layouts.app', ['pageSlug' => 'Administradores', 'titlePage' => __('Gestión de administradores')])
 
 @section('content')
     <div class="content">
