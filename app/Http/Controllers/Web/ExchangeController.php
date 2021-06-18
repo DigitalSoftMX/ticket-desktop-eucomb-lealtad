@@ -20,6 +20,9 @@ class ExchangeController extends Controller
         if (($user = Auth::user())->roles[0]->id == 3) {
             return view('exchanges.index', ['exchanges' => $user->admin->station->exchanges->where('status', '!=', 14)]);
         }
+        if (($user = auth()->user())->roles->first()->id == 7) {
+            return view('exchanges.index', ['exchanges' => $user->exchanges->where('statud', '!=', 14)]);
+        }
         return view('exchanges.index', ['exchanges' => Exchange::where('status', '!=', 14)->get()]);
     }
     // Metodo para entregar de canje
