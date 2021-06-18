@@ -63,10 +63,9 @@ class AdminController extends Controller
         if ($request->rol == 3) {
             request()->validate(['station_id' => 'required']);
         }
-        $date = substr(Carbon::now()->format('Y'), 2);
+        $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         while (true) {
-            $username = rand(1000, 9999);
-            $username = 'A-' . $date . $username;
+            $username = substr(str_shuffle($permitted_chars), 0, 10);
             if (!(User::where('username', $username)->exists())) {
                 $request->merge(['username' => $username]);
                 break;

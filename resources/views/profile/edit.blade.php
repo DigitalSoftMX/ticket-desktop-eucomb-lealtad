@@ -12,6 +12,9 @@
                         <div class="card ">
                             <div class="card-header card-header-primary">
                                 <h4 class="card-title">{{ __('Editar perfil') }}</h4>
+                                <div class="row justify-content-center">
+                                    <h4 class="row justify-content-center">{{ __('Código:') }}&nbsp;<strong>{{ auth()->user()->username }}</strong></h4> 
+                                </div>
                                 <p class="card-category">{{ __('Información de usuario') }}</p>
                             </div>
                             <div class="card-body ">

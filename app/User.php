@@ -5,7 +5,9 @@ namespace App;
 use App\Web\AdminStation;
 use App\Web\Client;
 use App\Web\Dispatcher;
+use App\Web\Exchange;
 use App\Web\SalesQr;
+use App\Web\UserHistoryDeposit;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -42,6 +44,25 @@ class User extends Authenticatable
     public function qrs()
     {
         return $this->hasMany(SalesQr::class, 'main_id', 'id');
+    }
+    public function deposits()
+    {
+        return $this->hasMany(UserHistoryDeposit::class, 'reference', 'username');
+    }
+    // Relacion con los clientes para el caso de administrador ventas
+    public function references()
+    {
+        return $this->belongsToMany(Client::class, 'sale_clients', 'sale_id');
+    }
+    // Relacion con las ventas por QR para el caso administrador ventas
+    public function salesqrs()
+    {
+        return $this->hasMany(SalesQr::class, 'reference', 'username');
+    }
+    // Relacion con los canjes para el caso de administrador ventas
+    public function exchanges()
+    {
+        return $this->hasMany(Exchange::class, 'reference', 'username');
     }
     // funcion que pregunta si el rol esta autorizado
     public function authorizeRoles($roles)

@@ -9,12 +9,14 @@
                         <div class="card-header card-header-primary">
                             <h4 class="card-title ">{{ __('Clientes') }}</h4>
                             <p class="card-category"> {{ __('Aquí puedes administrar a los clientes.') }}</p>
-                            <h4 class="card-title">
-                                <a href="{{ route('clients.index') }}" title="Regresar a la lista" class="h4">
-                                    <i class="tim-icons icon-minimal-left"></i>
-                                </a>
-                                {{ __('Buscar un usuario') }}
-                            </h4>
+                            @if (auth()->user()->roles->first()->id != 7)
+                                <h4 class="card-title">
+                                    <a href="{{ route('clients.index') }}" title="Regresar a la lista" class="h4">
+                                        <i class="tim-icons icon-minimal-left"></i>
+                                    </a>
+                                    {{ __('Buscar un usuario') }}
+                                </h4>
+                            @endif
                         </div>
                         <div class="card-body">
                             <div class="row">

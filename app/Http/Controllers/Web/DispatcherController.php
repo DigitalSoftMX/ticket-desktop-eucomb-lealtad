@@ -53,11 +53,11 @@ class DispatcherController extends Controller
     {
         $request->user()->authorizeRoles(['admin_master', 'admin_eucomb', 'admin_estacion']);
         $station = $request->user()->station(Auth::user(), $station);
-        $date = substr(Carbon::now()->format('Y'), 2);
+        $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         while (true) {
-            $username = rand(10000, 99999);
-            $username = 'D-' . $date . $username;
+            $username = substr(str_shuffle($permitted_chars), 0, 10);
             if (!(User::where('username', $username)->exists())) {
+                $request->merge(['username' => $username]);
                 break;
             }
         }

@@ -72,6 +72,13 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['admin_master', 'admin_eucomb', 'admin_estacion', 'admin_sales']);
+        if (($user = auth()->user())->roles->first()->id == 7) {
+            $users = [];
+            foreach ($user->references as $client) {
+                array_push($users, $client->user);
+            }
+            return view('clients.index', compact('users'));
+        }
         return view('clients.lookingforclients');
     }
 

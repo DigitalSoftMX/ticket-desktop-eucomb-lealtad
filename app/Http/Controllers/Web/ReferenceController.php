@@ -16,7 +16,7 @@ class ReferenceController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['admin_sales']);
+        $request->user()->authorizeRoles(['admin_master', 'admin_eucomb']);
         return view('hosts.index', ['clients' => Client::where('active', 1)->with('user')->get()]);
     }
 
@@ -27,21 +27,21 @@ class ReferenceController extends Controller
      */
     public function create(Request $request)
     {
-        $request->user()->authorizeRoles(['admin_sales']);
+        $request->user()->authorizeRoles(['admin_master', 'admin_eucomb']);
         return view('hosts.create');
     }
 
     // Agregar usuario que referieren
     public function addReference(Request $request, User $reference, User $user)
     {
-        $request->user()->authorizeRoles(['admin_sales']);
+        $request->user()->authorizeRoles(['admin_master', 'admin_eucomb']);
         $reference->hosts()->attach($user->client->id);
         return redirect()->route('references.show', $reference)->withStatus('Cliente de referencia agregado');
     }
     // quitar usuario que referieren
     public function dropReference(Request $request, User $reference, User $user)
     {
-        $request->user()->authorizeRoles(['admin_sales']);
+        $request->user()->authorizeRoles(['admin_master', 'admin_eucomb']);
         $reference->hosts()->detach($user->client->id);
         return redirect()->route('references.show', $reference)->withStatus('Cliente de referencia eliminado');
     }
@@ -54,7 +54,7 @@ class ReferenceController extends Controller
      */
     public function show(Request $request, User $reference)
     {
-        $request->user()->authorizeRoles(['admin_sales']);
+        $request->user()->authorizeRoles(['admin_master', 'admin_eucomb']);
         return view('hosts.show', ['reference' => $reference, 'hosts' => $reference->hosts()->with('user')->get()]);
     }
 
@@ -78,7 +78,7 @@ class ReferenceController extends Controller
      */
     public function update(Request $request, User $reference)
     {
-        $request->user()->authorizeRoles(['admin_sales']);
+        $request->user()->authorizeRoles(['admin_master', 'admin_eucomb']);
         if ($reference->client->active == 0) {
             $reference->client->update(['active' => 1]);
         } else {

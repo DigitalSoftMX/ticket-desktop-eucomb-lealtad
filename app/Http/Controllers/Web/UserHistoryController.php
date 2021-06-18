@@ -28,16 +28,4 @@ class UserHistoryController extends Controller
             }
         }
     }
-
-    /* public function search_client(Request $request)
-    {
-        $request->user()->authorizeRoles(['admin_master', 'admin_eucomb']);
-        $info_client = Client::where('membership', $request->membership)->first();
-        $info_movimientos = UserHistoryDeposit::where('client_id', $info_client->id)->whereBetween('created_at', [$request->inicial, $request->final])->get();
-
-        return response()->json([
-            'cliente'     => $info_client,
-            'movimientos' => $info_movimientos
-        ]);
-    } */
 }
