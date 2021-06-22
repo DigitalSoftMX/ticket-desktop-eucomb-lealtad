@@ -635,7 +635,7 @@ pre code {
 .container-fluid {
   width: 100%;
   padding-right: 15px;
-  padding-left: 15px;
+  /*padding-left: 15px;*/
   margin-right: auto;
   margin-left: auto;
 }
@@ -4295,7 +4295,7 @@ input[type="button"].btn-block {
 
 .nav-link {
   display: block;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem;
 }
 
 a.nav-link.active{
@@ -4441,7 +4441,7 @@ a.nav-link.active{
 }
 
 .navbar-toggler {
-  padding: 0.25rem 0.75rem;
+  /*padding: 5.25rem 0.75rem;*/
   font-size: 0.99925rem;
   line-height: 1;
   background-color: transparent;
@@ -14506,7 +14506,7 @@ fieldset[disabled] .btn-link.active {
 }
 
 .icon-xl+.icon-text {
-  width: calc(100% - $icon-size-xl - 1);
+  width: calc(100% - icon-size-xl - 1);
 }
 
 .icon-lg {
@@ -14520,7 +14520,7 @@ fieldset[disabled] .btn-link.active {
 }
 
 .icon-lg+.icon-text {
-  width: calc(100% - $icon-size-lg - 1);
+  width: calc(100% - icon-size-lg - 1);
 }
 
 .icon-sm {
@@ -14534,7 +14534,7 @@ fieldset[disabled] .btn-link.active {
 }
 
 .icon-sm+.icon-text {
-  width: calc(100% - $icon-size-sm - 1);
+  width: calc(100% - icon-size-sm - 1);
 }
 
 .icon-shape {
@@ -16397,6 +16397,7 @@ textarea.form-control:active {
 .navbar.navbar-absolute {
   position: absolute;
   z-index: 1050;
+  top: 0%;
 }
 
 .navbar.navbar-transparent {
@@ -16462,7 +16463,7 @@ textarea.form-control:active {
   padding-top: .3125rem;
   padding-bottom: .3125rem;
   color: #ffffff;
-  margin-left: 17px;
+  /*margin-left: 17px;*/
   text-transform: uppercase;
   font-size: 1rem;
 }
@@ -28805,7 +28806,7 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .white-content .bootstrap-select button.dropdown-toggle .filter-option {
-  color: #ffffff;
+  /*color: #ffffff;*/
 }
 
 .white-content .bootstrap-select button.dropdown-toggle:after {
@@ -30057,7 +30058,7 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .alinearTab{
-  transform: translateX(40%);
+  /*transform: translateX(40%);*/
   width:650px;
 }
 

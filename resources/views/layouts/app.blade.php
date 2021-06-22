@@ -137,7 +137,8 @@
 
         
         <script src="{{ asset('white') }}/js/theme.js"></script>
-        <script src="{{ asset('white') }}/js/settings.js"></script>
+        <script src="{{ asset('white') }}/js/styleChart/style.js"></script>
+        <!--script src="{{ asset('white') }}/js/settings.js"></script-->
       
         <script src="{{ asset('js') }}/DateComponent.js"></script>
         <script src="{{ asset('js') }}/tabla_inicializador.js"></script>

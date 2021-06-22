@@ -95,6 +95,84 @@ class AdminController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, User $admin)
+    {
+        $request->user()->authorizeRoles(['admin_master', 'admin_eucomb', 'admin_sales']);
+
+        // array meses en español
+        $array_meses_espanol = [ "Jan" => "Enero","Feb" => "Febrero","Mar" => "Marzo","Apr" => "Abril","May" => "Mayo","Jun" => "Junio","Jul" => "Julio","Aug" => "Agosto","Sep" => "Septiembre","Oct" => "Octubre","Nov" => "Noviembre","Dec" => "Diciembre"];
+
+        $array_meses_espanol_corto = [ "Jan" => "Ene", "Feb" => "Feb", "Mar" => "Mar", "Apr" => "Abr", "May" => "May", "Jun" => "Jun", "Jul" => "Jul", "Aug" => "Ago", "Sep" => "Sep", "Oct" => "Oct", "Nov" => "Nov", "Dec" => "Dic"];
+        // array para los meses
+        $array_meses = [];
+        // array para los meses
+        $array_meses_largos = [];
+
+        $stations = Station::all();
+        $dashboar = array();
+
+        $meses_hasta_el_actual = [];
+
+        //for para llenar el array con los meses hasta el actual
+        for ($i = 1; $i <= 11; $i++) {
+            array_push($meses_hasta_el_actual, date("Y-m", mktime(0, 0, 0, date("m") - $i, 28, date("Y"))));
+            array_push($array_meses, $array_meses_espanol_corto[strval(date("M", mktime(0, 0, 0, date("m") - $i, 28, date("Y"))))]);
+            array_push($array_meses_largos, $array_meses_espanol[strval(date("M", mktime(0, 0, 0, date("m") - $i, 28, date("Y"))))]);
+        }
+
+        array_unshift($meses_hasta_el_actual, date("Y-m", mktime(0, 0, 0, date("m"), 28, date("Y"))));
+        array_unshift($array_meses,  $array_meses_espanol_corto[strval(date("M", mktime(0, 0, 0, date("m"), 28, date("Y"))))]);
+        array_unshift($array_meses_largos,  $array_meses_espanol[strval(date("M", mktime(0, 0, 0, date("m"), 28, date("Y"))))]);
+        
+
+        $meses_hasta_el_actual = array_reverse($meses_hasta_el_actual);
+        $array_meses = array_reverse($array_meses);
+        //dd($array_meses_largos);
+
+        // año select
+        $year_select = [];
+        $stations_year = [];
+        $stations_mouths = [];
+        $stations_mouths_tickets = [];
+        $stations_mouths_exchage = [];
+
+        for ($a = (date('Y') - 3); $a <= date('Y'); $a++) {
+            array_push($year_select, $a);
+        }
+
+        $year_select = array_reverse($year_select);
+
+        for ($mes = 0; $mes <= 11; $mes++) {
+            foreach ($stations as $valor) {
+                array_push($stations_mouths,  $request->user()->salesqrs()->where([['station_id', $valor->id],['created_at', 'like', '%' . $meses_hasta_el_actual[$mes] . '%']])->sum('liters'));
+                array_push($stations_mouths_tickets, $request->user()->salesqrs()->Where([['station_id', $valor->id],['created_at', 'like', '%' . $meses_hasta_el_actual[$mes] . '%']])->count());
+                array_push($stations_mouths_exchage, $request->user()->exchanges()->Where([['station_id', $valor->id],['status', 14],['created_at', 'like', '%' . $meses_hasta_el_actual[$mes] . '%']])->count());
+            }
+        }
+
+        for($ai=0; $ai<3; $ai++){
+            foreach ($stations as $valor) {
+                array_push($stations_year, $request->user()->salesqrs()->where([['station_id', $valor->id],['created_at', 'like', '%' . $year_select[$ai] . '%']])->sum('liters'));
+            }
+        }
+
+        $dashboar['liters_mouths'] = array_reverse(array_chunk($stations_mouths, 8));
+        $dashboar['stations_mouths_tickets'] = array_reverse(array_chunk($stations_mouths_tickets, 8));
+        $dashboar['stations_mouths_exchage'] = array_reverse(array_chunk($stations_mouths_exchage, 8));
+        $dashboar['liters_year'] = array_chunk($stations_year,8);
+
+        //dd( $dashboar['liters_mouths']);
+
+
+        return view('admins.show',['userInfoSale' => $request,'estacion_dashboard' => $request->estacion_dashboard, 'stations' => $stations, 'year_select' => $year_select, 'array_meses' => $array_meses, 'array_meses_largos' => $array_meses_largos, 'dashboar' =>  $dashboar]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
