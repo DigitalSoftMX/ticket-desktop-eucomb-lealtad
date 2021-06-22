@@ -110,7 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 //rutas para los administradores
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('admins', 'Web\AdminController', ['except' => ['show']]);
+	Route::resource('admins', 'Web\AdminController');
 	Route::get('company', 'Web\AdminController@editCompany')->name('company');
 	Route::patch('company/{company}', 'Web\AdminController@updateCompany')->name('company.update');
 	Route::post('admins/schedules', 'Web\AdminController@getSchedules')->name('admins.schedules');
@@ -133,10 +133,10 @@ Route::group(['middleware' => 'auth'], function () {
 // Rutas para las estaciones
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('stations', 'Web\StationController');
-	Route::resource('stations/{station}/schedules', 'Web\ScheduleController', ['except' => ['show']]);
-	Route::resource('stations/{station}/islands', 'Web\IslandController', ['except' => ['show']]);
-	Route::resource('stations/{station}/dispatcher', 'Web\DispatcherController', ['except' => ['show']]);
-	Route::resource('stations/{station}/balances', 'Web\BalanceController', ['except' => ['show']]);
+	Route::resource('stations/{station}/schedules', 'Web\ScheduleController');
+	Route::resource('stations/{station}/islands', 'Web\IslandController');
+	Route::resource('stations/{station}/dispatcher', 'Web\DispatcherController');
+	Route::resource('stations/{station}/balances', 'Web\BalanceController');
 });
 // Rutas para los vales
 Route::group(['middleware' => 'auth'], function () {

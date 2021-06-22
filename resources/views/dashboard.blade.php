@@ -79,8 +79,8 @@
                                 </div>
                                 <div class="col-sm-2 text-center pl-3">
                                     <select id="select_dash_1" class="selectpicker show-menu-arrow float-start" data-style="btn-simple btn-github" data-width="95%">
-                                        @for($md=0; $md<12; $md++)
-                                            <option value="{{$md}}">{{$array_meses_largos[$md]}}</option>
+                                        @for($md=0; $md<3; $md++)
+                                            <option value="{{$md}}">{{$year_select[$md]}}</option>
                                         @endfor
                                     </select>
                                 </div>
@@ -518,285 +518,13 @@
     
     <script>
         function initDashboardPageCharts() {
-
             var liters_mouths = @json($dashboar['liters_mouths']);
+            var liters_year = @json($dashboar['liters_year']);
             var stations_mouths_tickets = @json($dashboar['stations_mouths_tickets']);
             var stations_mouths_exchage = @json($dashboar['stations_mouths_exchage']);
             var stations = @json($stations);
 
-            gradientChartOptionsConfigurationWithTooltipBlue = {
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-            tooltips: {
-                backgroundColor: '#f5f5f5',
-                titleFontColor: '#333',
-                bodyFontColor: '#666',
-                bodySpacing: 4,
-                xPadding: 12,
-                mode: "nearest",
-                intersect: 0,
-                position: "nearest"
-            },
-            responsive: true,
-            scales: {
-                yAxes: [{
-                barPercentage: 1.6,
-                gridLines: {
-                    drawBorder: false,
-                    color: 'rgba(29,140,248,0.0)',
-                    zeroLineColor: "transparent",
-                },
-                ticks: {
-                    suggestedMin: 60,
-                    suggestedMax: 125,
-                    padding: 20,
-                    fontColor: "#2380f7"
-                }
-                }],
-
-                xAxes: [{
-                barPercentage: 1.6,
-                gridLines: {
-                    drawBorder: false,
-                    color: 'rgba(29,140,248,0.1)',
-                    zeroLineColor: "transparent",
-                },
-                ticks: {
-                    padding: 20,
-                    fontColor: "#2380f7"
-                }
-                }]
-            }
-            };
-
-            gradientChartOptionsConfigurationWithTooltipPurple = {
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-            tooltips: {
-                backgroundColor: '#f5f5f5',
-                titleFontColor: '#333',
-                bodyFontColor: '#666',
-                bodySpacing: 4,
-                xPadding: 12,
-                mode: "nearest",
-                intersect: 0,
-                position: "nearest"
-            },
-            responsive: true,
-            scales: {
-                yAxes: [{
-                barPercentage: 1.6,
-                gridLines: {
-                    drawBorder: false,
-                    color: 'rgba(29,140,248,0.0)',
-                    zeroLineColor: "transparent",
-                },
-                ticks: {
-                    suggestedMin: 60,
-                    suggestedMax: 125,
-                    padding: 20,
-                    fontColor: "#9a9a9a"
-                }
-                }],
-                xAxes: [{
-                barPercentage: 1.6,
-                gridLines: {
-                    drawBorder: false,
-                    color: 'rgba(225,78,202,0.1)',
-                    zeroLineColor: "transparent",
-                },
-                ticks: {
-                    padding: 20,
-                    fontColor: "#9a9a9a"
-                }
-                }]
-            },
-            elements: {
-				center: {
-                    text: '90%',
-                    color: '#FF6384', // Default is #000000
-                    fontStyle: 'Arial', // Default is Arial
-                    sidePadding: 20 // Defualt is 20 (as a percentage)
-				}
-			},
-            };
-
-            gradientChartOptionsConfigurationWithTooltipOrange = {
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-
-            tooltips: {
-                backgroundColor: '#f5f5f5',
-                titleFontColor: '#333',
-                bodyFontColor: '#666',
-                bodySpacing: 4,
-                xPadding: 12,
-                mode: "nearest",
-                intersect: 0,
-                position: "nearest"
-            },
-            responsive: true,
-            scales: {
-                yAxes: [{
-                barPercentage: 1.6,
-                gridLines: {
-                    drawBorder: false,
-                    color: 'rgba(29,140,248,0.0)',
-                    zeroLineColor: "transparent",
-                },
-                ticks: {
-                    suggestedMin: 50,
-                    suggestedMax: 110,
-                    padding: 20,
-                    fontColor: "#ff8a76"
-                }
-                }],
-
-                xAxes: [{
-                barPercentage: 1.6,
-                gridLines: {
-                    drawBorder: false,
-                    color: 'rgba(220,53,69,0.1)',
-                    zeroLineColor: "transparent",
-                },
-                ticks: {
-                    padding: 20,
-                    fontColor: "#ff8a76"
-                }
-                }]
-            }
-            };
-
-            gradientChartOptionsConfigurationWithTooltipGreen = {
-                maintainAspectRatio: false,
-                legend: {
-                        display: true,
-                        align:'center',
-                        position:'left',
-                        
-                }, 
-
-                /*plugins: {
-      
-                    doughnutlabel: {
-                        labels: [{
-                        text: '550',
-                        font: {
-                            size: 20,
-                            weight: 'bold'
-                        }
-                        }, {
-                        text: 'total'
-                        }]
-                    }
-                },*/
-                
-                tooltips: {
-                    backgroundColor: '#f5f5f5',
-                    titleFontColor: '#333',
-                    bodyFontColor: '#666',
-                    bodySpacing: 4,
-                    xPadding: 12,
-                    mode: "nearest",
-                    intersect: 0,
-                    position: "nearest"
-                },
-                responsive: true,
-                scales: {
-                    yAxes: [{
-                        type: 'category',
-                        align:'center',
-                        gridLines: {
-                            drawBorder: true,
-                            color: 'rgba(255,255,255,0.0)',
-                            zeroLineColor: "transparent",
-                        },
-                        ticks: {
-                            display: false,
-                            align:'start',
-                            suggestedMin: 50,
-                            suggestedMax: 125,
-                            padding: 20,
-                            fontColor: "#9e9e9e",
-                            beginAtZero: true,
-                        }
-                    }],
-
-                    xAxes: [{
-                        align:'start',
-                        barPercentage: 1.6,
-                        gridLines: {
-                            drawBorder: false,
-                            color: 'rgba(255,255,255,0.1)',
-                            zeroLineColor: "transparent",
-                        },
-                        ticks: {
-                            display: false,
-                            padding: 20,
-                            fontColor: "#9e9e9e",
-                            beginAtZero: true
-                        }
-                    }]
-                },
-                
-            };
-
-
-            gradientBarChartConfiguration = {
-            maintainAspectRatio: false,
-            legend: {
-                display: true,
-                align:'center',
-                position:'left',    
-            },
-
-            tooltips: {
-                backgroundColor: '#f5f5f5',
-                titleFontColor: '#333',
-                bodyFontColor: '#666',
-                bodySpacing: 4,
-                xPadding: 12,
-                mode: "nearest",
-                intersect: 0,
-                position: "nearest"
-            },
-            responsive: true,
-            scales: {
-                yAxes: [{
-
-                gridLines: {
-                    drawBorder: false,
-                    color: 'rgba(29,140,248,0.1)',
-                    zeroLineColor: "transparent",
-                },
-                ticks: {
-                    suggestedMin: 60,
-                    suggestedMax: 120,
-                    padding: 30,
-                    fontColor: "#9e9e9e"
-                }
-                }],
-
-                xAxes: [{
-
-                gridLines: {
-                    drawBorder: false,
-                    color: 'rgba(29,140,248,0.1)',
-                    zeroLineColor: "transparent",
-                },
-                ticks: {
-                    padding: 20,
-                    fontColor: "#9e9e9e"
-                }
-                }]
-            }
-            };
+            
             
             @foreach($stations as $key => $estacion)
                 var ctx = document.getElementById("chartLinePurple{{$key}}").getContext("2d");
@@ -1183,7 +911,7 @@
 
             //var chart_labelsL = @json($array_meses);
             //var chart_dataL = @json($litros_magna_meses);
-            document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: {{ number_format(array_sum($dashboar['liters_mouths'][0]),2) }}L";
+            document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: {{ number_format(array_sum($dashboar['liters_year'][0]),2) }}L";
 
             var ctxL = document.getElementById("chartBig1L").getContext('2d');
 
@@ -1220,7 +948,7 @@
                         pointHoverRadius: 4,
                         pointHoverBorderWidth: 15,
                         pointRadius: 4,
-                        data: @json($dashboar['liters_mouths'][0]),
+                        data: @json($dashboar['liters_year'][0]),
                     }]
                 },
                 options: gradientChartOptionsConfigurationWithTooltipPurple
@@ -1230,9 +958,9 @@
 
             $( "#select_dash_1" ).change(function() {
                 var php_variable = document.getElementById("select_dash_1").value;
-                const total = liters_mouths[php_variable].reduce((a, b) => a + b);
-                document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: "+total.toFixed(2)+"L";
-                var chart_dataL = liters_mouths[php_variable];
+                const total = liters_year[php_variable].reduce((a, b) => a + b);
+                document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: "+ total.toFixed(2)+"L";
+                var chart_dataL = liters_year[php_variable];
                 var data = myChartDataL.config.data;
                 data.datasets[0].data = chart_dataL;
                 myChartDataL.update();

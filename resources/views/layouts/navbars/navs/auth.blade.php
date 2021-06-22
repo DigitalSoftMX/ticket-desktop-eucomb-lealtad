@@ -8,43 +8,36 @@
                     <span class="navbar-toggler-bar bar3"></span>
                 </button>
             </div>
-            <a class="navbar-brand" href="{{ route('home') }}">{{ $titlePage ?? __($titlePage) }}</a>
-            @if (auth()->user()->roles->first()->id == 7)
-                {{ __('Código:') }} &nbsp; <strong>{{ auth()->user()->username }}</strong>
-            @endif
-            @if ($titlePage == 'dashboard')
-                <!--div class="navbar-brand alinearTab justify-content-start">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">General</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Lealtad</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Prepago</a>
-                        </li>
-                    </ul>
-                </div-->
-                <div class="nav-tabs-navigation alinearTab">
-                    <div class="nav-tabs-wrapper">
-                        <ul class="nav" data-tabs="tabs">
-                            <!--li class="nav-item">
-                                <a class="nav-link" href="#home" data-toggle="tab">General</a>
-                            </li-->
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#updates" data-toggle="tab">Lealtad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#history" data-toggle="tab">Prepago</a>
-                            </li>
-                        </ul>
+            <a class="navbar-brand d-none d-lg-block d-xl-block" href="{{ route('home') }}">{{ $titlePage ?? __($titlePage) }}</a>
+            <!--div class="row"-->
+                @if (auth()->user()->roles->first()->id == 7)
+                    <div class="col-sm-6">
+                        <a class="navbar-brand">{{ __('Código:') }} &nbsp; <strong>{{ auth()->user()->username }}</strong></a>
                     </div>
-                </div>
-            @endif
+                @endif
+                @if ($titlePage == 'dashboard')
+                    <div class="col-sm-6 d-none d-lg-block d-xl-block">
+                        <div class="nav-tabs-navigation alinearTab">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav" data-tabs="tabs">
+                                    <!--li class="nav-item">
+                                        <a class="nav-link" href="#home" data-toggle="tab">General</a>
+                                    </li-->
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#updates" data-toggle="tab">Lealtad</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#history" data-toggle="tab">Prepago</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            <!--/div-->
             @if ($titlePage != 'dashboard')
                 @isset($station)
-                    <div class="nav-tabs-navigation alinearTab">
+                    <div class="nav-tabs-navigation alinearTab d-none d-lg-block d-xl-block">
                         <div class="nav-tabs-wrapper">
                             <ul class="nav" data-tabs="tabs">
                                 <!--li class="nav-item">
@@ -62,19 +55,43 @@
                 @endisset
             @endif
 
-            <a class="navbar-toggle navbar-brand m-0" href="#">
-                <img class="float-left mt-3 mb-3 mr-5 pr-4 pl-1 pt-1 pb-1"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png"
-                    alt="" width="1%">
-            </a>
+           
 
         </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-            aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-        </button>
+        <div class="row mt-3">
+            <div class="col-1">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                </button>
+            </div>
+            <div class="col-6 pl-0 navbar-toggler">
+                @if ($titlePage == 'dashboard')
+               
+                    <div class="nav-tabs-navigation alinearTab">
+                        <div class="nav-tabs-wrapper">
+                            <ul class="nav" data-tabs="tabs">
+                                <!--li class="nav-item">
+                                    <a class="nav-link" href="#home" data-toggle="tab">General</a>
+                                </li-->
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#updates" data-toggle="tab">Lealtad</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#history" data-toggle="tab">Prepago</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                
+                @endif
+            </div>
+        </div>
+        
+
+       
 
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
@@ -84,7 +101,7 @@
                         <span class="d-lg-none d-md-block">{{ __('Buscar') }}</span>
                     </button>
                 </li>
-                <li class="dropdown nav-item">
+                <!--li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <div class="notification d-none d-lg-block d-xl-block"></div>
                         <i class="tim-icons icon-sound-wave"></i>
@@ -95,23 +112,8 @@
                             <a href="#" class="nav-item dropdown-item">{{ __('Notificaciones') }}</a>
                         </li>
                     </ul>
-                </li>
-                <li class="navbar-toggle dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="tim-icons icon-chart-pie-36"></i>
-                        <p class="d-lg-none"> {{ __('Menu') }} </p>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
-                        <li class="dropdown-divider"></li>
-                        @for ($i = 0; $i < count($menus); $i++)
-                            @foreach ($menus[$i] as $menu) <li
-                            class="nav-link">
-                            <a class="nav-item dropdown-item"
-                            href="{{ url($menu->ruta) }}">{{ __($menu->name_modulo) }}</a>
-                            </li> @endforeach
-                        @endfor
-                    </ul>
-                </li>
+                </li-->
+                
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <div class="photo">
