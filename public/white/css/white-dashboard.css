@@ -26824,7 +26824,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before 
   font-family: 'Courier New', Courier, monospace;
   line-height: 14px;
   content: '+';
-  background-color: #0275d8;
+  background-color: #4caf50;
 }
 
 table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before,

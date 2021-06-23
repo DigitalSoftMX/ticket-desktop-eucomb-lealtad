@@ -3,108 +3,16 @@
 @section('content')
 
     <div class="tab-content text-center">
+
         <div class="tab-pane active" id="updates">
-            <div class="row mt-5">
-                <div class="col-sm-3">
-                    <div class="card">
-                        <div class="card-body text-left">
-                            <h6 class="card-subtitle mt-0 mb-0 text-muted">Usuarios referidos</h6>
-                            <h3 class="title mb-0">{{number_format($userInfoSale->user()->references()->count(),0)}}</h3>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="col-sm-3">
-                    <div class="card">
-                        <div class="card-body text-left">
-                            <h6 class="card-subtitle mt-0 mb-0 text-muted">Total de vales entregados</h6>
-                            <h3 class="title mb-0">{{number_format($userInfoSale->user()->exchanges()->count(),0)}}</h3>
-                            
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-3">
-                    <div class="card">
-                        <div class="card-body text-left">
-                            <h6 class="card-subtitle mt-0 mb-0 text-muted">litros vendidos</h6>
-                            <h3 class="title mb-0">{{ number_format($userInfoSale->user()->salesqrs()->sum('liters'), 2) }}</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-3">
-                    <div class="card">
-                        <div class="card-body text-left">
-                            <h6 class="card-subtitle mt-0 mb-0 text-muted">total de tickets escaneados</h6>
-                            <h3 class="title mt-0 mb-0">{{ number_format($userInfoSale->user()->salesqrs()->count(), 0) }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <x-HeaderDashboard :user="$userInfoSale"/>
             
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="card overflowCards card-chart">
-                        <div class="card-header">
-                            <div class="row mt-1 mb-0">
-                                <div class="col-sm-10 pt-2 text-left">
-                                    <h3 class="card-subtitle text-muted">VENTAS TOTALES POR ESTACIÓN</h3>
-                                    <!--h2 class="card-title mb-5">Litros</h2-->
-                                </div>
-                                <div class="col-sm-2 text-center pl-3">
-                                    <select id="select_dash_1" class="selectpicker show-menu-arrow float-start" data-style="btn-simple btn-github" data-width="95%">
-                                        @for($md=0; $md<3; $md++)
-                                            <option value="{{$md}}">{{$year_select[$md]}}</option>
-                                        @endfor 
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mt-0 mb-0">
-                                <div class="col-sm-5 text-left pt-3 pl-3">
-                                    <h4 class="card-subtitle text-muted" id="ventasTotalH4"></h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-area_2 p-3">
-                                <canvas id="chartBig1L"></canvas>
-                            </div>
-                        </div>
-                    </div>
+                    <x-MainGraphicsDashboard number="4" :options="$year_select"/>
                 </div>  
                 <div class="col-lg-4">
-                    <div class="card card-chart">
-                        <div class="card-header text-left m-0 p-0 pt-4 pl-5 pb-0">
-                            <h4 class="titlee text-muted font-weight-bold p-0 m-0">
-                               DETALLES POR ESTACIÓN
-                            </h4>
-                        </div>
-                        <div class="card-body text-left m-0 p-0 pt-3 pb-3">
-                            <div class="row m-0 pl-5 pr-5 pt-0 pb-0">
-                                <div class="table-full-width table-responsive col-sm-12 m-0 mr-0 ml-0 pr-0 pl-0">
-                                    <table class="table table-shopping">
-                                        <tbody>
-                                            @foreach($stations as $estacion_1)
-                                            <tr>
-                                                <td>
-                                                    <p class=" card-subtitle">{{ $estacion_1->name }}</p>
-                                                </td>
-                                                <td class="td-actions text-right">
-                                                    <a class="btn btn-danger btn-link p-0 m-0" data-original-title=""
-                                                    href="{{ route('stations.show', $estacion_1) }}" rel="tooltip"
-                                                        title="Ver información de la estación">
-                                                        <i class="material-icons text-success">keyboard_arrow_right</i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            @endforeach   
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <x-DetailsStationDashboard title="DETALLES POR ESTACIÓN" :stations="$stations"/>
                 </div>
             </div>
 
@@ -147,7 +55,6 @@
                             </div>     
                         </div>
                     </div>
-                    
                     
                     @endfor
                 </div>
@@ -220,6 +127,7 @@
 
         
     </div>
+  
     
 
 @endsection

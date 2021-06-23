@@ -207,7 +207,7 @@ class HomeController extends Controller
         // año select
         $year_select = [];
 
-        for ($a = (date('Y') - 3); $a <= $new_year; $a++) {
+        for ($a = (date('Y') - 4); $a <= date('Y'); $a++) {
             array_push($year_select, $a);
         }
 
@@ -228,7 +228,7 @@ class HomeController extends Controller
             }
         }
 
-        for($ai=0; $ai<3; $ai++){
+        for($ai=0; $ai<4; $ai++){
             foreach ($stations as $valor) {
                 array_push($stations_year, SalesQr::where([['station_id', $valor->id],['created_at', 'like', '%' . $year_select[$ai] . '%']])->sum('liters') + Ticket::where([['descrip', 'puntos sumados'],['descrip', 'Puntos Dobles Sumados'],['created_at', 'like', '%' . $year_select[$ai] . '%'],['id_gas', $valor->id]])->sum('litro'));
             }

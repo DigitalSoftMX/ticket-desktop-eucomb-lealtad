@@ -155,7 +155,7 @@ class AdminController extends Controller
             }
         }
 
-        for($ai=0; $ai<3; $ai++){
+        for($ai=0; $ai<4; $ai++){
             foreach ($stations as $valor) {
                 array_push($stations_year, $request->user()->salesqrs()->where([['station_id', $valor->id],['created_at', 'like', '%' . $year_select[$ai] . '%']])->sum('liters'));
             }
