@@ -70,15 +70,17 @@
             
             <div class="row">
                 <div class="col-lg-8">
-                    <x-MainGraphicsDashboard number="4" :options="$year_select"/>
+                    <x-MainGraphicsDashboard number="4" :stations="$stations"/>
                 </div>  
                 <div class="col-lg-4">
                     <x-DetailsStationDashboard title="DETALLES POR ESTACIÓN" :stations="$stations"/>
                 </div>
             </div>
-            
+
             <x-chartCarouselDashboard :mounts="$array_meses_largos"/>
-           
+
+            <x-ComparativeGraphDashboard :mounts="$array_meses_largos" :stations="$stations" :chart="$dashboar" />
+
 
             <div class="row">
                 <div class="col-lg-6">
@@ -409,7 +411,7 @@
     <script>
         function initDashboardPageCharts() {
             var liters_mouths = @json($dashboar['liters_mouths']);
-            var liters_year = @json($dashboar['liters_year']);
+            
             var stations_mouths_tickets = @json($dashboar['stations_mouths_tickets']);
             var stations_mouths_exchage = @json($dashboar['stations_mouths_exchage']);
             var stations = @json($stations);
@@ -801,60 +803,8 @@
 
             //var chart_labelsL = @json($array_meses);
             //var chart_dataL = @json($litros_magna_meses);
-            document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: {{ number_format(array_sum($dashboar['liters_year'][0]),2) }}L";
-
-            var ctxL = document.getElementById("chartBig1L").getContext('2d');
-
-            var gradientStroke = ctxL.createLinearGradient(0, 230, 0, 50);
-
-            gradientStroke.addColorStop(1.0, 'rgba(17, 196, 14,0.2)');
             
-            gradientStroke.addColorStop(0.5, 'rgba(17, 196, 14,0.05)');
-            
-            gradientStroke.addColorStop(0.0, 'rgba(17, 196, 14,0.0)');  
-
-
-            //purple colors
-            var config = {
-                type: 'line',
-                data: {
-                    labels:[
-                    @foreach($stations as $station)
-                        '{{$station->abrev}}',
-                    @endforeach
-                    ],
-                    datasets: [{
-                        label: "Total de litros al mes",
-                        fill: true,
-                        backgroundColor: gradientStroke,
-                        borderColor: '#00c907',
-                        borderWidth: 2,
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        pointBackgroundColor: '#007d04',
-                        pointBorderColor: 'rgba(255,255,255,0)',
-                        pointHoverBackgroundColor: '#d346b1',
-                        pointBorderWidth: 20,
-                        pointHoverRadius: 4,
-                        pointHoverBorderWidth: 15,
-                        pointRadius: 4,
-                        data: @json($dashboar['liters_year'][0]),
-                    }]
-                },
-                options: gradientChartOptionsConfigurationWithTooltipPurple
-            };
-
-            var myChartDataL = new Chart(ctxL, config);
-
-            $( "#select_dash_1" ).change(function() {
-                var php_variable = document.getElementById("select_dash_1").value;
-                const total = liters_year[php_variable].reduce((a, b) => a + b);
-                document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: "+ total.toFixed(2)+"L";
-                var chart_dataL = liters_year[php_variable];
-                var data = myChartDataL.config.data;
-                data.datasets[0].data = chart_dataL;
-                myChartDataL.update();
-            });
+            @stack('dash')
 
         };
         $(document).ready(function() {

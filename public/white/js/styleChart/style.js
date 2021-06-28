@@ -30,29 +30,27 @@
             }
             }],
             xAxes: [{
-            barPercentage: 1.6,
-            gridLines: {
-                drawBorder: false,
-                color: 'rgba(225,78,202,0.1)',
-                zeroLineColor: "transparent",
-            },
-            ticks: {
-                padding: 20,
-                fontColor: "#9a9a9a"
-            }
+                barPercentage: 1.6,
+                gridLines: {
+                    drawBorder: false,
+                    color: 'rgba(225,78,202,0.1)',
+                    zeroLineColor: "transparent",
+                },
+                ticks: {
+                    padding: 20,
+                    fontColor: "#9a9a9a"
+                }
             }]
         },
         elements: {
             center: {
                 text: '90%',
-                color: '#FF6384', // Default is #000000
-                fontStyle: 'Arial', // Default is Arial
-                sidePadding: 20 // Defualt is 20 (as a percentage)
+                color: '#FF6384',
+                fontStyle: 'Arial',
+                sidePadding: 20 
             }
         },
     };
-
-
 
     gradientChartOptionsConfigurationWithTooltipBlue = {
         maintainAspectRatio: false,
@@ -72,31 +70,31 @@
         responsive: true,
         scales: {
             yAxes: [{
-            barPercentage: 1.6,
-            gridLines: {
-                drawBorder: false,
-                color: 'rgba(29,140,248,0.0)',
-                zeroLineColor: "transparent",
-            },
-            ticks: {
-                suggestedMin: 60,
-                suggestedMax: 125,
-                padding: 20,
-                fontColor: "#2380f7"
-            }
+                barPercentage: 1.6,
+                gridLines: {
+                    drawBorder: false,
+                    color: 'rgba(29,140,248,0.0)',
+                    zeroLineColor: "transparent",
+                },
+                ticks: {
+                    suggestedMin: 60,
+                    suggestedMax: 125,
+                    padding: 20,
+                    fontColor: "#2380f7"
+                }
             }],
 
             xAxes: [{
-            barPercentage: 1.6,
-            gridLines: {
-                drawBorder: false,
-                color: 'rgba(29,140,248,0.1)',
-                zeroLineColor: "transparent",
-            },
-            ticks: {
-                padding: 20,
-                fontColor: "#2380f7"
-            }
+                barPercentage: 1.6,
+                gridLines: {
+                    drawBorder: false,
+                    color: 'rgba(29,140,248,0.1)',
+                    zeroLineColor: "transparent",
+                },
+                ticks: {
+                    padding: 20,
+                    fontColor: "#2380f7"
+                }
             }]
         }
     };
@@ -104,51 +102,50 @@
     
 
     gradientChartOptionsConfigurationWithTooltipOrange = {
-    maintainAspectRatio: false,
-    legend: {
-        display: false
-    },
-
-    tooltips: {
-        backgroundColor: '#f5f5f5',
-        titleFontColor: '#333',
-        bodyFontColor: '#666',
-        bodySpacing: 4,
-        xPadding: 12,
-        mode: "nearest",
-        intersect: 0,
-        position: "nearest"
-    },
-    responsive: true,
-    scales: {
-        yAxes: [{
-        barPercentage: 1.6,
-        gridLines: {
-            drawBorder: false,
-            color: 'rgba(29,140,248,0.0)',
-            zeroLineColor: "transparent",
+        maintainAspectRatio: false,
+        legend: {
+            display: false
         },
-        ticks: {
-            suggestedMin: 50,
-            suggestedMax: 110,
-            padding: 20,
-            fontColor: "#ff8a76"
-        }
-        }],
-
-        xAxes: [{
-        barPercentage: 1.6,
-        gridLines: {
-            drawBorder: false,
-            color: 'rgba(220,53,69,0.1)',
-            zeroLineColor: "transparent",
+        tooltips: {
+            backgroundColor: '#f5f5f5',
+            titleFontColor: '#333',
+            bodyFontColor: '#666',
+            bodySpacing: 4,
+            xPadding: 12,
+            mode: "nearest",
+            intersect: 0,
+            position: "nearest"
         },
-        ticks: {
-            padding: 20,
-            fontColor: "#ff8a76"
+        responsive: true,
+        scales: {
+            yAxes: [{
+                barPercentage: 1.6,
+                gridLines: {
+                    drawBorder: false,
+                    color: 'rgba(29,140,248,0.0)',
+                    zeroLineColor: "transparent",
+                },
+                ticks: {
+                    suggestedMin: 50,
+                    suggestedMax: 110,
+                    padding: 20,
+                    fontColor: "#ff8a76"
+                }
+            }],
+
+            xAxes: [{
+                barPercentage: 1.6,
+                gridLines: {
+                    drawBorder: false,
+                    color: 'rgba(220,53,69,0.1)',
+                    zeroLineColor: "transparent",
+                },
+                ticks: {
+                    padding: 20,
+                    fontColor: "#ff8a76"
+                }
+            }]
         }
-        }]
-    }
     };
 
     gradientChartOptionsConfigurationWithTooltipGreen = {
@@ -159,7 +156,6 @@
                 position:'left',
                 
         }, 
-
         /*plugins: {
 
             doughnutlabel: {
@@ -174,7 +170,6 @@
                 }]
             }
         },*/
-        
         tooltips: {
             backgroundColor: '#f5f5f5',
             titleFontColor: '#333',
@@ -227,51 +222,47 @@
 
 
     gradientBarChartConfiguration = {
-    maintainAspectRatio: false,
-    legend: {
-        display: true,
-        align:'center',
-        position:'left',    
-    },
-
-    tooltips: {
-        backgroundColor: '#f5f5f5',
-        titleFontColor: '#333',
-        bodyFontColor: '#666',
-        bodySpacing: 4,
-        xPadding: 12,
-        mode: "nearest",
-        intersect: 0,
-        position: "nearest"
-    },
-    responsive: true,
-    scales: {
-        yAxes: [{
-
-        gridLines: {
-            drawBorder: false,
-            color: 'rgba(29,140,248,0.1)',
-            zeroLineColor: "transparent",
+        maintainAspectRatio: false,
+        legend: {
+            display: true,
+            align:'center',
+            position:'left',    
         },
-        ticks: {
-            suggestedMin: 60,
-            suggestedMax: 120,
-            padding: 30,
-            fontColor: "#9e9e9e"
-        }
-        }],
-
-        xAxes: [{
-
-        gridLines: {
-            drawBorder: false,
-            color: 'rgba(29,140,248,0.1)',
-            zeroLineColor: "transparent",
+        tooltips: {
+            backgroundColor: '#f5f5f5',
+            titleFontColor: '#333',
+            bodyFontColor: '#666',
+            bodySpacing: 4,
+            xPadding: 12,
+            mode: "nearest",
+            intersect: 0,
+            position: "nearest"
         },
-        ticks: {
-            padding: 20,
-            fontColor: "#9e9e9e"
+        responsive: true,
+        scales: {
+            yAxes: [{
+            gridLines: {
+                drawBorder: false,
+                color: 'rgba(29,140,248,0.1)',
+                zeroLineColor: "transparent",
+            },
+            ticks: {
+                suggestedMin: 60,
+                suggestedMax: 120,
+                padding: 30,
+                fontColor: "#9e9e9e"
+            }
+            }],
+            xAxes: [{
+                gridLines: {
+                    drawBorder: false,
+                    color: 'rgba(29,140,248,0.1)',
+                    zeroLineColor: "transparent",
+                },
+                ticks: {
+                    padding: 20,
+                    fontColor: "#9e9e9e"
+                }
+            }]
         }
-        }]
-    }
     };

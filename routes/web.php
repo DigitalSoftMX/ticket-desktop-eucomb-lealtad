@@ -27,6 +27,7 @@ Route::get('/logout', function () {
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
+	Route::get('litersMountYears', 'HomeController@litersMountYears')->name('litersMountYears')->middleware('auth');
 	Route::get('estacion/{id}', 'HomeController@show')->name('estacion')->middleware('auth');
 });
 

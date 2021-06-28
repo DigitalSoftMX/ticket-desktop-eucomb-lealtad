@@ -5,7 +5,8 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 
 class chartCarouselDashboard extends Component
-{
+{   
+    protected $listeners = ['postAdded' => 'incrementPostCount'];
     public $mounts;
     /**
      * Create a new component instance.
@@ -26,4 +27,10 @@ class chartCarouselDashboard extends Component
     {
         return view('components.chart-carousel-dashboard');
     }
+
+    public function incrementPostCount()
+    {
+        $this->mounts = ['enero','enero','enero','enero','enero','enero','enero','enero','enero','enero','enero','enero'];
+    }
+
 }

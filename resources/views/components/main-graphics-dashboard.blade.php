@@ -25,3 +25,57 @@
         </div>
     </div>
 </div>
+
+@push('dash')
+    var liters_yearM = @json($chart);
+    document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: {{ number_format(array_sum($chart[0]),2) }}L";
+
+    var ctxL = document.getElementById("chartBig1L").getContext('2d');
+    var gradientStroke = ctxL.createLinearGradient(0, 230, 0, 50);
+    gradientStroke.addColorStop(1.0, 'rgba(17, 196, 14,0.2)');
+    gradientStroke.addColorStop(0.5, 'rgba(17, 196, 14,0.05)');
+    gradientStroke.addColorStop(0.0, 'rgba(17, 196, 14,0.0)');  
+
+    //purple colors
+    var config = {
+        type: 'line',
+        data: {
+            labels:[
+            @foreach($stations as $station)
+                '{{$station->abrev}}',
+            @endforeach
+            ],
+            datasets: [{
+                label: "Total de litros al mes",
+                fill: true,
+                backgroundColor: gradientStroke,
+                borderColor: '#00c907',
+                borderWidth: 2,
+                borderDash: [],
+                borderDashOffset: 0.0,
+                pointBackgroundColor: '#007d04',
+                pointBorderColor: 'rgba(255,255,255,0)',
+                pointHoverBackgroundColor: '#d346b1',
+                pointBorderWidth: 20,
+                pointHoverRadius: 4,
+                pointHoverBorderWidth: 15,
+                pointRadius: 4,
+                data: @json($chart[0]),
+            }]
+        },
+        options: gradientChartOptionsConfigurationWithTooltipPurple
+    };
+
+    var myChartDataL = new Chart(ctxL, config);
+
+    $( "#select_dash_1" ).change(function() {
+        var php_variable = document.getElementById("select_dash_1").value;
+        const total = liters_yearM[php_variable].reduce((a, b) => a + b);
+        document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: "+ total.toFixed(2)+"L";
+        var chart_dataL = chart[php_variable];
+        var data = myChartDataL.config.data;
+        data.datasets[0].data = chart_dataL;
+        myChartDataL.update();
+    });
+
+@endpush

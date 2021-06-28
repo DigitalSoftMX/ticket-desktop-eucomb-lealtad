@@ -11,6 +11,7 @@ use App\Web\SalesQr;
 use Illuminate\Http\Request;
 use App\Web\AdminStation;
 use App\User;
+use App\Jobs\ProcessPodcast;
 
 
 class HomeController extends Controller
@@ -218,7 +219,6 @@ class HomeController extends Controller
         $stations_mouths = [];
         $stations_mouths_tickets = [];
         $stations_mouths_exchage = [];
-        $stations_year = [];
 
         for ($mes = 0; $mes <= 11; $mes++) {
             foreach ($stations as $valor) {
@@ -228,20 +228,40 @@ class HomeController extends Controller
             }
         }
 
-        for($ai=0; $ai<4; $ai++){
-            foreach ($stations as $valor) {
-                array_push($stations_year, SalesQr::where([['station_id', $valor->id],['created_at', 'like', '%' . $year_select[$ai] . '%']])->sum('liters') + Ticket::where([['descrip', 'puntos sumados'],['descrip', 'Puntos Dobles Sumados'],['created_at', 'like', '%' . $year_select[$ai] . '%'],['id_gas', $valor->id]])->sum('litro'));
-            }
-        }
-
         $dashboar['liters_mouths'] = array_reverse(array_chunk($stations_mouths, 8));
         $dashboar['stations_mouths_tickets'] = array_reverse(array_chunk($stations_mouths_tickets, 8));
         $dashboar['stations_mouths_exchage'] = array_reverse(array_chunk($stations_mouths_exchage, 8));
-        $dashboar['liters_year'] = array_chunk($stations_year,8);
-        //dd($dashboar['liters_mouths'][1][0]);
-        //dd($dashboar);
 
 
         return view('dashboard', compact('dashboar', 'stations', 'array_meses', 'array_meses_largos', 'litros_magna_meses', 'litros_premium_meses', 'litros_diesel_meses', 'litros_total', 'meses_ventas_estacion', 'suma_li_tem', 'suma_tem_final', 'clientes_totales', 'ventas_totales', 'abonos_totales', 'clientes_mes_actual', 'ventas_totales_mes_actual', 'crecimiento', 'crecimiento_litros', 'year_select'));
+    }
+
+    public function litersMountYears(Request $request)
+    {
+        
+        $stations = Station::all();
+        $stations_year = [];
+
+        $one = $request->mountOne;
+        $two = $request->mountTwo;
+
+        if($one < 10){
+            $one = '0'.$one;
+        }
+
+        if($two < 10){
+            $two = '0'.$two;
+        }
+
+        foreach ($stations as $valor) {
+            array_push($stations_year, number_format(SalesQr::where([['station_id', $valor->id],['created_at', 'like', '%' .date('Y').'-'.$one.'%']])->sum('liters') + Ticket::where([['descrip', 'puntos sumados'],['descrip', 'Puntos Dobles Sumados'],['created_at', 'like', '%' . date('Y').'-'.$one.'%'],['id_gas', $valor->id]])->sum('litro'),2));
+        }
+
+        foreach ($stations as $valor) {
+            array_push($stations_year, number_format(SalesQr::where([['station_id', $valor->id],['created_at', 'like', '%' .(date('Y')-1).'-'.$two.'%']])->sum('liters') + Ticket::where([['descrip', 'puntos sumados'],['descrip', 'Puntos Dobles Sumados'],['created_at', 'like', '%' . (date('Y')-1).'-'.$two.'%'],['id_gas', $valor->id]])->sum('litro'),2));
+        }
+
+        return response()->json([ 'chartYears' => array_chunk($stations_year,8)]);
+       
     }
 }
