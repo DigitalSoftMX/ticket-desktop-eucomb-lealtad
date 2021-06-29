@@ -25,10 +25,10 @@
                         <a class="font-weight-bold h5">{{ $estacion_1->abrev }}:</a>
                     </div>
                     <div class="col-sm-5 text-center mt-2 mb-2">
-                        <a class="font-weight-bold h5" id="colRed{{$clave}}">{{ number_format($chart[0][$clave],2) }}L</a>
+                        <a class="h5" id="colRed{{$clave}}">{{ number_format($chart[0][$clave],2) }}L</a>
                     </div>
                     <div class="col-sm-5 text-center mt-2 mb-2">
-                        <a class="font-weight-bold h5" id="colGreen{{$clave}}">{{  number_format($chart[1][$clave],2) }}L</a>
+                        <a class="h5" id="colGreen{{$clave}}">{{  number_format($chart[1][$clave],2) }}L</a>
                     </div>
                 </div>
                 @endforeach   
