@@ -5,14 +5,14 @@
                 <div class="row">
                     <div class="col-sm-2 text-right"></div>
                     <div class="col-sm-5 text-center">
-                        <select id="dateone" class="dateone selectpicker show-menu-arrow pr-4" data-style="btn-simple btn-github" data-width="90%">
+                        <select id="dateone" class="dateone selectpicker show-menu-arrow" data-style="btn-simple btn-github" data-width="60%">
                             @for($md=0; $md<$num_months; $md++)
                                 <option value="{{($num_months - $md)}}">{{$mounts[$md]}} {{ $year }}</option>
                             @endfor
                         </select>
                     </div>
                     <div class="col-sm-5 text-center">
-                        <select id="datetwo" class="datetwo selectpicker show-menu-arrow pr-4" data-style="btn-simple btn-github" data-width="90%">
+                        <select id="datetwo" class="datetwo selectpicker show-menu-arrow" data-style="btn-simple btn-github" data-width="60%">
                             @for($md=0; $md<$num_months; $md++)
                                 <option value="{{($num_months - $md)}}">{{$mounts[$md]}} {{ ($year - 1) }}</option>
                             @endfor
