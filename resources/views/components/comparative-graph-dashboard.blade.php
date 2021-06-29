@@ -22,7 +22,7 @@
                 @foreach($stations as $clave => $estacion_1)
                 <div class="row">
                     <div class="col-sm-4 text-left mt-2 mb-2">
-                        <a class="font-weight-bold h5">{{ $estacion_1->name }}:</a>
+                        <a class="font-weight-bold h5">{{ $estacion_1->abrev }}:</a>
                     </div>
                     <div class="col-sm-4 text-center mt-2 mb-2">
                         <a class="font-weight-bold h5" id="colRed{{$clave}}">{{ number_format($chart[0][$clave],2) }}L</a>
