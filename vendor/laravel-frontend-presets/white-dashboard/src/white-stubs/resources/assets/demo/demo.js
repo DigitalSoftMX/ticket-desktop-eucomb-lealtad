@@ -396,7 +396,7 @@ demo = {
     var data = {
       labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
       datasets: [{
-        label: "my",
+        label: "My First dataset",
         fill: true,
         backgroundColor: gradientStroke,
         borderColor: '#00d6b4',
@@ -439,7 +439,7 @@ demo = {
       data: {
         labels: chart_labels,
         datasets: [{
-          label: "my",
+          label: "My First dataset",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: '#d346b1',

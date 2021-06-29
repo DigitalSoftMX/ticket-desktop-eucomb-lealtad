@@ -22051,7 +22051,7 @@ NOTE: use percentage font sizes or else old IE chokes
 
 .fc-icon-down-triangle:after {
   content: "\25BC";
-  font-size: 125%;
+  font-size: 155%;
   top: 2%;
 }
 
@@ -26824,7 +26824,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before 
   font-family: 'Courier New', Courier, monospace;
   line-height: 14px;
   content: '+';
-  background-color: #0275d8;
+  background-color: #4caf50;
 }
 
 table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before,
@@ -30064,4 +30064,22 @@ Copyright (c) 2015 Daniel Eden
 
 .overflowCards{
   overflow: visible;
+}
+
+
+.white-content .bootstrap-select.dateone button.dropdown-toggle:after{
+  color: red;
+}
+
+.white-content .bootstrap-select.datetwo button.dropdown-toggle:after{
+  color: #4CAF50;
+}
+
+.select{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: 50%;
 }

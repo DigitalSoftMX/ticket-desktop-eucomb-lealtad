@@ -70,123 +70,17 @@
             
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="card overflowCards card-chart">
-                        <div class="card-header">
-                            <div class="row mt-1 mb-0">
-                                <div class="col-sm-10 pt-2 text-left">
-                                    <h3 class="card-subtitle text-muted">VENTAS TOTALES POR ESTACIÓN</h3>
-                                    <!--h2 class="card-title mb-5">Litros</h2-->
-                                </div>
-                                <div class="col-sm-2 text-center pl-3">
-                                    <select id="select_dash_1" class="selectpicker show-menu-arrow float-start" data-style="btn-simple btn-github" data-width="95%">
-                                        @for($md=0; $md<3; $md++)
-                                            <option value="{{$md}}">{{$year_select[$md]}}</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mt-0 mb-0">
-                                <div class="col-sm-5 text-left pt-3 pl-3">
-                                    <h4 class="card-subtitle text-muted" id="ventasTotalH4"></h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-area_2 p-3">
-                                <canvas id="chartBig1L"></canvas>
-                            </div>
-                        </div>
-                    </div>
+                    <x-MainGraphicsDashboard number="4" :stations="$stations"/>
                 </div>  
                 <div class="col-lg-4">
-                    <div class="card card-chart">
-                        <div class="card-header text-left m-0 p-0 pt-4 pl-5 pb-0">
-                            <h4 class="titlee text-muted font-weight-bold p-0 m-0">
-                               DETALLES POR ESTACIÓN
-                            </h4>
-                        </div>
-                        <div class="card-body text-left m-0 p-0 pt-3 pb-3">
-                            <div class="row m-0 pl-5 pr-5 pt-0 pb-0">
-                                <div class="table-full-width table-responsive col-sm-12 m-0 mr-0 ml-0 pr-0 pl-0">
-                                    <table class="table table-shopping">
-                                        <tbody>
-                                            @foreach($stations as $estacion_1)
-                                           
-                                            <tr>
-                                                <td>
-                                                    <p class=" card-subtitle">{{ $estacion_1->name }}</p>
-                                                </td>
-                                                
-                                                <td class="td-actions text-right">
-                                                    <a class="btn btn-danger btn-link p-0 m-0" data-original-title=""
-                                                    href="{{ route('stations.show', $estacion_1) }}" rel="tooltip"
-                                                        title="Ver información de la estación">
-                                                        <i class="material-icons text-success">keyboard_arrow_right</i>
-                                                    </a>
-                                                </td>
-                                                    
-                                            </tr>
-                                           
-                                            @endforeach           
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <x-DetailsStationDashboard title="DETALLES POR ESTACIÓN" :stations="$stations"/>
                 </div>
             </div>
 
-            @php
-                $m = 0;
-            @endphp
+            <x-chartCarouselDashboard :mounts="$array_meses_largos"/>
 
-            <div id="carouselExampleInterval" class="carousel slide m-4" data-ride="carousel">
+            <x-ComparativeGraphDashboard :mounts="$array_meses_largos" :stations="$stations" :chart="$dashboar" />
 
-                <div class="carousel-inner">
-                    @for($i=1; $i<5; $i++)
-                    <div class="carousel-item @if($i == 1) active @endif" data-interval="10000">
-                        <div class="d-block w-100">
-                            <div class="row">
-                               @for($j=1; $j<4; $j++)
-                               
-                                <div class="col-lg-4">
-                                    <div class="card card-chart">
-                                        <div class="card-header">
-                                            <div class="row">
-                                                <div class="col-12 text-left">
-                                                    <a class="text-muted">Litros vendidos por estación MENSUAL</a>
-                                                </div>
-                                                <div class="col-12 text-left">
-                                                    <a class="text-success font-weight-bold h4">{{$array_meses_largos[$m]}}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="chart-area pl-2 pr-3">
-                                                <canvas id="chartLineGreen{{$m}}"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @php
-                                    $m++;
-                                @endphp
-                                @endfor
-                            </div>     
-                        </div>
-                    </div>
-                    
-                    
-                    @endfor
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-                    <i class="tim-icons icon-minimal-left text-white"></i>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-                    <i class="tim-icons icon-minimal-right text-white"></i>
-                </a>
-            </div>
 
             <div class="row">
                 <div class="col-lg-6">
@@ -218,11 +112,10 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="card overflowCards card-chart">
-                    <div class="card-header text-left">
+                        <div class="card-header text-left">
                             <div class="row">
                                 <div class="col-sm-7">
-                                    <h4 class="titlee text-muted font-weight-bold p-0 m-0 pl-4 pt-2" id="ticketsTotalH4">
-                                    </h4>
+                                    <h4 class="titlee text-muted font-weight-bold p-0 m-0 pl-4 pt-2" id="ticketsTotalH4"></h4>
                                 </div>
                                 <div class="col-sm-5 text-right">
                                     <select id="select_dash_3" class="selectpicker show-menu-arrow pr-4" data-style="btn-simple btn-github" data-width="50%">
@@ -232,7 +125,6 @@
                                     </select>
                                 </div>
                             </div>
-
                         </div>
                         <div class="card-body">
                             <div class="row">   
@@ -519,7 +411,7 @@
     <script>
         function initDashboardPageCharts() {
             var liters_mouths = @json($dashboar['liters_mouths']);
-            var liters_year = @json($dashboar['liters_year']);
+            
             var stations_mouths_tickets = @json($dashboar['stations_mouths_tickets']);
             var stations_mouths_exchage = @json($dashboar['stations_mouths_exchage']);
             var stations = @json($stations);
@@ -911,60 +803,8 @@
 
             //var chart_labelsL = @json($array_meses);
             //var chart_dataL = @json($litros_magna_meses);
-            document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: {{ number_format(array_sum($dashboar['liters_year'][0]),2) }}L";
-
-            var ctxL = document.getElementById("chartBig1L").getContext('2d');
-
-            var gradientStroke = ctxL.createLinearGradient(0, 230, 0, 50);
-
-            gradientStroke.addColorStop(1.0, 'rgba(17, 196, 14,0.2)');
             
-            gradientStroke.addColorStop(0.5, 'rgba(17, 196, 14,0.05)');
-            
-            gradientStroke.addColorStop(0.0, 'rgba(17, 196, 14,0.0)');  
-
-
-            //purple colors
-            var config = {
-                type: 'line',
-                data: {
-                    labels:[
-                    @foreach($stations as $station)
-                        '{{$station->abrev}}',
-                    @endforeach
-                    ],
-                    datasets: [{
-                        label: "Total de litros al mes",
-                        fill: true,
-                        backgroundColor: gradientStroke,
-                        borderColor: '#00c907',
-                        borderWidth: 2,
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        pointBackgroundColor: '#007d04',
-                        pointBorderColor: 'rgba(255,255,255,0)',
-                        pointHoverBackgroundColor: '#d346b1',
-                        pointBorderWidth: 20,
-                        pointHoverRadius: 4,
-                        pointHoverBorderWidth: 15,
-                        pointRadius: 4,
-                        data: @json($dashboar['liters_year'][0]),
-                    }]
-                },
-                options: gradientChartOptionsConfigurationWithTooltipPurple
-            };
-
-            var myChartDataL = new Chart(ctxL, config);
-
-            $( "#select_dash_1" ).change(function() {
-                var php_variable = document.getElementById("select_dash_1").value;
-                const total = liters_year[php_variable].reduce((a, b) => a + b);
-                document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: "+ total.toFixed(2)+"L";
-                var chart_dataL = liters_year[php_variable];
-                var data = myChartDataL.config.data;
-                data.datasets[0].data = chart_dataL;
-                myChartDataL.update();
-            });
+            @stack('dash')
 
         };
         $(document).ready(function() {

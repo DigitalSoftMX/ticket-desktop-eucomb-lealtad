@@ -21,6 +21,7 @@
         <link href="{{ asset('white') }}/css/theme.css" rel="stylesheet" />
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+        @livewireStyles
     </head>
     <body class="white-content {{ $class ?? '' }}  sidebar-mini">
         @auth()
@@ -142,6 +143,7 @@
       
         <script src="{{ asset('js') }}/DateComponent.js"></script>
         <script src="{{ asset('js') }}/tabla_inicializador.js"></script>
+
 
 
         @stack('js')
@@ -490,7 +492,8 @@
                 });
             });
         </script>
-        @stack('js')
-        @stack('references')
+        
+       
+        @livewireScripts
     </body>
 </html>
