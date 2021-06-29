@@ -3,15 +3,15 @@
         <div class="col-sm-5 p-3">
             <div class="text-left">
                 <div class="row">
-                    <div class="col-sm-4 text-right"></div>
-                    <div class="col-sm-4 text-center">
+                    <div class="col-sm-2 text-right"></div>
+                    <div class="col-sm-5 text-center">
                         <select id="dateone" class="dateone selectpicker show-menu-arrow pr-4" data-style="btn-simple btn-github" data-width="90%">
                             @for($md=0; $md<$num_months; $md++)
                                 <option value="{{($num_months - $md)}}">{{$mounts[$md]}} {{ $year }}</option>
                             @endfor
                         </select>
                     </div>
-                    <div class="col-sm-4 text-center">
+                    <div class="col-sm-5 text-center">
                         <select id="datetwo" class="datetwo selectpicker show-menu-arrow pr-4" data-style="btn-simple btn-github" data-width="90%">
                             @for($md=0; $md<$num_months; $md++)
                                 <option value="{{($num_months - $md)}}">{{$mounts[$md]}} {{ ($year - 1) }}</option>
@@ -21,13 +21,13 @@
                 </div>
                 @foreach($stations as $clave => $estacion_1)
                 <div class="row">
-                    <div class="col-sm-4 text-left mt-2 mb-2">
+                    <div class="col-sm-2 text-left mt-2 mb-2">
                         <a class="font-weight-bold h5">{{ $estacion_1->abrev }}:</a>
                     </div>
-                    <div class="col-sm-4 text-center mt-2 mb-2">
+                    <div class="col-sm-5 text-center mt-2 mb-2">
                         <a class="font-weight-bold h5" id="colRed{{$clave}}">{{ number_format($chart[0][$clave],2) }}L</a>
                     </div>
-                    <div class="col-sm-4 text-center mt-2 mb-2">
+                    <div class="col-sm-5 text-center mt-2 mb-2">
                         <a class="font-weight-bold h5" id="colGreen{{$clave}}">{{  number_format($chart[1][$clave],2) }}L</a>
                     </div>
                 </div>
