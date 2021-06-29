@@ -458,6 +458,7 @@
 @push('js')
     
     <script>
+    
         function initDashboardPageCharts() {
             var liters_mouths = @json($dashboar['liters_mouths']);
             
