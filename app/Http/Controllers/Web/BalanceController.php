@@ -24,9 +24,10 @@ class BalanceController extends Controller
             $station = $request->user()->station(Auth::user(), $station);
             return view('balance.index', ['payments' => $station->deposits->where('status', '!=', 4), 'station' => $station]);
         }
-        if (($user = auth()->user())->roles->first()->id)
-            return view('balance.index', ['payments' => $user->deposits->where('status', '!=', 4)]);
-        return view('balance.index', ['payments' => UserHistoryDeposit::where('status', '!=', 4)->get()]);
+        if (($user = auth()->user())->roles->first()->id == 1)
+            //dd('si');
+            return view('balance.index', ['payments' => UserHistoryDeposit::where('status', '!=', 4)->get()]);
+        //return view('balance.index', ['payments' => $user->deposits->where('status', '!=', 4)]);
     }
 
     // Funcion para autorizar el abono
