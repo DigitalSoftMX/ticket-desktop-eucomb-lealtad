@@ -35,14 +35,14 @@
                     </div>
                 @endif
             <!--/div-->
-            @if ($titlePage != 'dashboard')
+            @if ($titlePage != 'dashboard' && $titlePage != 'Estaciones')
                 @isset($station)
                     <div class="nav-tabs-navigation alinearTab d-none d-lg-block d-xl-block">
                         <div class="nav-tabs-wrapper">
                             <ul class="nav" data-tabs="tabs">
                                 <!--li class="nav-item">
-                                                                                    <a class="nav-link" href="#home" data-toggle="tab">General</a>
-                                                                                </li-->
+                                    <a class="nav-link" href="#home" data-toggle="tab">General</a>
+                                </li-->
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#updates" data-toggle="tab">Lealtad</a>
                                 </li>
