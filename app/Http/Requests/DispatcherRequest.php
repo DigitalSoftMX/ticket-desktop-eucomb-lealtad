@@ -38,9 +38,6 @@ class DispatcherRequest extends FormRequest
             'sex' => [
                 'required'
             ],
-            'phone' => [
-                'required', 'min:10'
-            ],
             'email' => [
                 'required', 'email', Rule::unique((new User)->getTable())->ignore($this->route()->user->id ?? null)
             ],
