@@ -20,8 +20,7 @@
         <link href="{{ asset('white') }}/css/white-dashboard.css?v=2.1.2" rel="stylesheet" />
         <link href="{{ asset('white') }}/css/theme.css" rel="stylesheet" />
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-        @livewireStyles
+            <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     </head>
     <body class="white-content {{ $class ?? '' }}  sidebar-mini">
         @auth()
@@ -147,6 +146,7 @@
 
 
         @stack('js')
+        @stack('app')
 
         <script>
             // Ajax para consultar los movimientos
@@ -321,45 +321,6 @@
                     }
                 });
             });
-            // Ajax de horarios por estaciones para la vista admnis/create
-            $(".selectpicker").change(function() {
-                $("#station_id").val( $("#input-station").val());
-                $("#schedule_id").val($("#input-schedule").val());
-                $("#island_id").val($("#input-island").val());
-            });
-            $("#input-station").change(function() {
-                $("#station_id").val($("#input-station").val());
-                schedules($("#station_id").val());
-            });
-            function schedules(id){
-                $.ajax({
-                    url: "{{ route('admins.schedules') }}",
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        '_token': $('input[name=_token]').val(),
-                        'station': id,
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        $('#input-schedule').children('option:not(:first)').remove();
-                        $('#input-island').children('option:not(:first)').remove();
-                        for (i = 0; i < response.schedules.length; i++) {
-                            $('#input-schedule').append('<option value="'+response.schedules[i].id+'">'+response.schedules[i].name+' - De: '+response.schedules[i].start+' hrs A: '+response.schedules[i].end+' hrs'+'</option>');
-                        }
-                        for (i = 0; i < response.islands.length; i++) {
-                            $('#input-island').append('<option value="'+response.islands[i].id+'">'+'Isla '+response.islands[i].island+' - Bomba '+response.islands[i].bomb+'</option>');
-                        }
-                        $('#input-schedule').selectpicker('render');
-                        $('#input-schedule').selectpicker('refresh');
-                        $('#input-island').selectpicker('render');
-                        $('#input-island').selectpicker('refresh');
-                    }
-                });
-            }
 
             function desabilitarBoton(id){
                 document.getElementById(id).disabled = true;
@@ -493,7 +454,5 @@
             });
         </script>
         
-       
-        @livewireScripts
     </body>
 </html>

@@ -116,23 +116,33 @@
                     class="selectpicker show-menu-arrow {{ $errors->has('sex') ? ' has-danger' : '' }}"
                     data-style="btn-primary" data-width="100%" data-live-search="true">
                     <option value="">{{ __('Elija una opción') }}</option>
-                    <option value="M">Femenino</option>
-                    <option value="H">Masculino</option>
+                    <option value="M" @if ($dispatcher->user->sex ?? '' == 'M') selected @endif>Femenino</option>
+                    <option value="H" @if ($dispatcher->user->sex ?? '' == 'H') selected @endif>Masculino</option>
                 </select>
+                @if ($errors->has('sex'))
+                    <span id="sex-error" class="error text-danger" for="input-sex">
+                        {{ $errors->first('sex') }}
+                    </span>
+                @endif
             </div>
             @if ($station->id == null)
                 <div class="form-group{{ $errors->has('station_id') ? ' has-danger' : '' }} col-sm-6">
                     <label for="input-station">{{ __('Estación') }}</label>
                     <select id="input-station"
                         class="selectpicker show-menu-arrow {{ $errors->has('station_id') ? ' has-danger' : '' }}"
-                        data-style="btn-primary" data-width="100%" data-live-search="true">
+                        data-style="btn-primary" data-width="100%" data-live-search="true" name="station_id">
                         <option data-tokens="" value="">{{ __('Elija una opción') }}</option>
                         @foreach ($stations as $s)
-                            <option data-tokens="{{ $s->name }}" value="{{ $s->id }}">
+                            <option data-tokens="{{ $s->name }}" value="{{ $s->id }}" @if (($st = $dispatcher->station_id ?? '') == $s->id) selected @endif>
                                 {{ $s->name }}
                             </option>
                         @endforeach
                     </select>
+                    @if ($errors->has('station_id'))
+                        <span id="station_id-error" class="error text-danger" for="input-station_id">
+                            {{ $errors->first('station_id') }}
+                        </span>
+                    @endif
                 </div>
             @endif
         </div>
@@ -140,22 +150,23 @@
         <div class="row mt-3">
             <div class="form-group{{ $errors->has('schedule_id') ? ' has-danger' : '' }} col-sm-6">
                 <label for="input-schedule">{{ __('Horario') }}</label>
-                <select id="input-schedule" @if ($station->id != null) name="schedule_id" @endif
+                <select id="input-schedule" name="schedule_id"
                     class="selectpicker show-menu-arrow {{ $errors->has('schedule_id') ? ' has-danger' : '' }}"
                     data-style="btn-primary" data-width="100%" data-live-search="true">
                     <option data-tokens="" value="">{{ __('Elija una opción') }}</option>
                     @if ($station->id != null)
                         @foreach ($station->schedules as $schedule)
-                            <option value="{{ $schedule->id }}"> {{ $schedule->name }} - De:
-                                {{ $schedule->start }}
-                                hrs A: {{ $schedule->end }} hrs</option>
+                            <option value="{{ $schedule->id }}" @if (($sch = $dispatcher->schedule_id ?? '') == $schedule->id) selected @endif>
+                                {{ $schedule->name }} - De: {{ $schedule->start }}
+                                hrs A: {{ $schedule->end }} hrs
+                            </option>
                         @endforeach
                     @endif
                 </select>
             </div>
             <div class="form-group{{ $errors->has('island_id') ? ' has-danger' : '' }} col-sm-6">
                 <label for="input-island">{{ __('Isla y bomba') }}</label>
-                <select id="input-island" @if ($station->id != null) name="island_id" @endif
+                <select id="input-island" name="island_id"
                     class="selectpicker show-menu-arrow {{ $errors->has('island_id') ? ' has-danger' : '' }}"
                     data-style="btn-primary" data-width="100%" data-live-search="true">
                     <option data-tokens="" value="">{{ __('Elija una opción') }}</option>
@@ -170,11 +181,7 @@
             </div>
         </div>
         <input type="hidden" id="active" value="1" name="active">
-        @if ($station->id == null)
-            <input type="hidden" name="station_id" id="station_id" value="">
-            <input type="hidden" name="schedule_id" id="schedule_id" value="">
-            <input type="hidden" name="island_id" id="island_id" value="">
-        @else
+        @if ($station->id != null)
             <input type="hidden" name="station_id" id="station_id" value="{{ $station->id }}">
         @endif
         <div class="card-footer ml-auto mr-auto mt-5">
@@ -182,3 +189,54 @@
         </div>
     </div>
 </div>
+@push('app')
+    <script>
+        let station = "{{ $dispatcher->station_id ?? '' }}";
+        if (station != '') {
+            schedules(station);
+        }
+        $("#input-station").change(function() {
+            station = document.getElementById('input-station').value;
+            schedules(station);
+        });
+
+        async function schedules(station) {
+            try {
+                const resp = await fetch("{{ route('admins.schedules') }}", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-Token": $('input[name="_token"]').val()
+                    },
+                    body: JSON.stringify({
+                        station: station
+                    })
+                });
+                const data = await resp.json();
+                console.log(data);
+                $('#input-schedule').children('option:not(:first)').remove();
+                $('#input-island').children('option:not(:first)').remove();
+                data.schedules.forEach(schedule => {
+                    $('#input-schedule').append( /* html */ `
+                        <option value="${schedule.id}" ${(sch="{{ $dispatcher->schedule_id ?? '' }}")==schedule.id?'selected':''}>
+                            ${schedule.name} De: ${schedule.start} hrs A: ${schedule.end} hrs
+                        </option>
+                    `);
+                });
+                data.islands.forEach(island => {
+                    $('#input-island').append( /* html */ `
+                    <option value="${island.id}" ${(isl="{{ $dispatcher->island_id ?? '' }}")==island.id?'selected':''}>
+                        Isla ${island.island} - Bomba ${island.bomb}
+                    </option>
+                    `);
+                });
+                $('#input-schedule').selectpicker('refresh');
+                $('#input-island').selectpicker('refresh');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
+@endpush
