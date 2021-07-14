@@ -62,11 +62,18 @@
                                                     @endforeach
                                                 </td>
                                                 <td>{{ $dispatcher->station->name }}</td>
-                                                <td>De: {{ $dispatcher->schedule->start }} hrs A:
-                                                    {{ $dispatcher->schedule->end }} hrs
+                                                <td>
+                                                    @if ($dispatcher->schedule != null)
+                                                        De: {{ $dispatcher->schedule->start }} hrs A:
+                                                        {{ $dispatcher->schedule->end }} hrs
+                                                    @endif
                                                 </td>
-                                                <td>Isla {{ $dispatcher->island->island }} - Bomba
-                                                    {{ $dispatcher->island->bomb }}</td>
+                                                <td>
+                                                    @if ($dispatcher->island != null)
+                                                        Isla {{ $dispatcher->island->island }} - Bomba
+                                                        {{ $dispatcher->island->bomb }}
+                                                    @endif
+                                                </td>
                                                 <td>{{ $dispatcher->user->created_at->format('d/m/Y') }}</td>
                                                 <td class="td-actions text-right">
                                                     @if ($station->id != null)

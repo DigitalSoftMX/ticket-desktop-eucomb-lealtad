@@ -196,6 +196,7 @@ return [
         'max' => 'máximo',
         'station' => 'imagen',
         'abrev' => 'abreviación',
-        'image_payment' => 'imagen'
+        'image_payment' => 'imagen',
+        'station_id' => 'estación'
     ],
 ];

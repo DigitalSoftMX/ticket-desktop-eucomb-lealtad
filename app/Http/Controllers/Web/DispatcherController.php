@@ -4,15 +4,11 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DispatcherRequest;
-use App\Http\Requests\EditDispatcherRequest;
 use App\User;
 use App\Web\Dispatcher;
 use App\Web\Station;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 
 class DispatcherController extends Controller
 {
@@ -61,7 +57,7 @@ class DispatcherController extends Controller
                 break;
             }
         }
-        $user = User::create($request->merge(['password' => Hash::make($request->get('password')), 'username' => $username])->all());
+        $user = User::create($request->merge(['password' => bcrypt($request->password), 'username' => $username])->all());
         if ($station->id != null) {
             $request->merge(['station_id' => $station->id]);
         } else {
@@ -70,9 +66,9 @@ class DispatcherController extends Controller
         Dispatcher::create($request->merge(['user_id' => $user->id])->all());
         $user->roles()->attach(4);
         if ($station->id != null) {
-            return redirect()->route('dispatcher.index', $station)->withStatus(__('Despachador creado con éxito'));
+            return redirect()->route('dispatcher.index', $station)->withStatus(__('Despachador registrado correctamente.'));
         }
-        return redirect()->route('dispatchers.index')->withStatus(__('Despachador creado con éxito'));
+        return redirect()->route('dispatchers.index')->withStatus(__('Despachador creado correctamente.'));
     }
 
     /**
@@ -95,39 +91,20 @@ class DispatcherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EditDispatcherRequest $request, Station $station, Dispatcher $dispatcher)
+    public function update(DispatcherRequest $request, Station $station, Dispatcher $dispatcher)
     {
         $request->user()->authorizeRoles(['admin_master', 'admin_eucomb', 'admin_estacion']);
         $station = $request->user()->station(Auth::user(), $station);
-        if ($request->station_id != null) {
-            $request->validate(['schedule_id' => 'required', 'island_id' => 'required']);
-            $dispatcher->update($request->only('station_id', 'schedule_id', 'island_id'));
-        }
         if ($station->id != null) {
-            if ($request->schedule_id != null || $request->island_id != null) {
-                $request->merge(['station_id' => $station->id]);
-                if ($request->schedule_id == null) {
-                    $request->merge(['schedule_id' => $dispatcher->user->schedule_id]);
-                }
-                if ($request->island_id == null) {
-                    $request->merge(['island_id' => $dispatcher->user->island_id]);
-                }
-                $dispatcher->update($request->only('station_id', 'schedule_id', 'island_id'));
-            }
+            $request->merge(['station_id' => $station->id]);
         }
-        if ($request->email != $dispatcher->user->email) {
-            request()->validate(['email' => ['required', 'email', Rule::unique('users')->ignore($dispatcher->user->id)]]);
-        }
-        if ($request->sex == null) {
-            $request->merge(['sex' => $dispatcher->user->sex]);
-        }
+        $dispatcher->update($request->only('station_id', 'schedule_id', 'island_id'));
         if ($request->password != null) {
             request()->validate(['password' => 'confirmed|min:6']);
-            $request->merge(['password' => Hash::make($request->get('password'))]);
-        } else {
-            $request->merge(['password' => $dispatcher->user->password]);
+            $request->merge(['password' => bcrypt($request->password)]);
+            $dispatcher->user->update($request->only('password'));
         }
-        $dispatcher->user->update($request->all());
+        $dispatcher->user->update($request->except('password'));
         if ($station->id != null) {
             return redirect()->route('dispatcher.index', $station)->withStatus(__('Despachador actualizado correctamente'));
         }
@@ -143,7 +120,7 @@ class DispatcherController extends Controller
     public function destroy(Request $request, Dispatcher $dispatcher)
     {
         $request->user()->authorizeRoles(['admin_master', 'admin_eucomb', 'admin_estacion']);
-        $dispatcher->user->delete();
+        $dispatcher->user->update(['active' => 0]);
         return redirect()->back()->withStatus(__('Despachador eliminado exitosamente.'));
     }
 }

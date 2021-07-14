@@ -26,26 +26,16 @@ class DispatcherRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'required', 'min:3'
-            ],
-            'first_surname' => [
-                'required', 'min:3'
-            ],
-            'second_surname' => [
-                'required', 'min:3'
-            ],
-            'sex' => [
-                'required'
-            ],
+            'name' => 'required|min:3',
+            'first_surname' => 'required|min:3',
+            'second_surname' => 'required|min:3',
+            'sex' => 'required',
             'email' => [
-                'required', 'email', Rule::unique((new User)->getTable())->ignore($this->route()->user->id ?? null)
+                'required', 'email', Rule::unique((new User)->getTable())->ignore($this->route()->dispatcher->user->id ?? null)
             ],
             'password' => [
-                $this->route()->user ? 'required_with:password_confirmation' : 'required', 'nullable', 'confirmed', 'min:6'
+                $this->route()->dispatcher ? 'required_with:password_confirmation' : 'required', 'nullable', 'confirmed', 'min:6'
             ],
-            'schedule_id' => 'required',
-            'island_id' => 'required'
         ];
     }
 }
