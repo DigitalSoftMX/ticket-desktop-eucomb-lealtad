@@ -1,4 +1,4 @@
-@extends('layouts.app', ['pageSlug' => $pageSlug, 'titlePage' => 'Ventas de clientes por invitación'])
+@extends('layouts.app', ['pageSlug' => $pageSlug, 'titlePage'=>'Ventas de clientes por invitación'])
 
 @section('content')
     <div class="tab-content text-center">
