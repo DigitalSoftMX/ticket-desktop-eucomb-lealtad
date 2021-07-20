@@ -2,6 +2,7 @@
 
 namespace App\Web;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class SalesQr extends Model
@@ -20,5 +21,10 @@ class SalesQr extends Model
     public function gasoline()
     {
         return $this->belongsTo(Gasoline::class);
+    }
+    // Relacion con el usuario de invitacion
+    public function _reference()
+    {
+        return $this->belongsTo(User::class, 'reference', 'username');
     }
 }

@@ -8,32 +8,33 @@
                     <span class="navbar-toggler-bar bar3"></span>
                 </button>
             </div>
-            <a class="navbar-brand d-none d-lg-block d-xl-block" href="{{ route('home') }}">{{ $titlePage ?? __($titlePage) }}</a>
+            <a class="navbar-brand d-none d-lg-block d-xl-block"
+                href="{{ route('home') }}">{{ $titlePage ?? __($titlePage) }}</a>
             <!--div class="row"-->
-                @if (auth()->user()->roles->first()->id == 7)
-                    <div class="col-sm-6">
-                        <a class="navbar-brand">{{ __('Código:') }} &nbsp; <strong>{{ auth()->user()->username }}</strong></a>
-                    </div>
-                @endif
-                @if ($titlePage == 'dashboard')
-                    <div class="col-sm-6 d-none d-lg-block d-xl-block">
-                        <div class="nav-tabs-navigation alinearTab">
-                            <div class="nav-tabs-wrapper">
-                                <ul class="nav" data-tabs="tabs">
-                                    <!--li class="nav-item">
+            <div class="col-sm-6">
+                <a class="navbar-brand">{{ __('Mi código:') }} &nbsp;
+                    <strong>{{ auth()->user()->username }}</strong>
+                </a>
+            </div>
+            @if ($titlePage == 'dashboard')
+                <div class="col-sm-6 d-none d-lg-block d-xl-block">
+                    <div class="nav-tabs-navigation alinearTab">
+                        <div class="nav-tabs-wrapper">
+                            <ul class="nav" data-tabs="tabs">
+                                <!--li class="nav-item">
                                         <a class="nav-link" href="#home" data-toggle="tab">General</a>
                                     </li-->
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="#updates" data-toggle="tab">Lealtad</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#history" data-toggle="tab">Prepago</a>
-                                    </li>
-                                </ul>
-                            </div>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#updates" data-toggle="tab">Lealtad</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#history" data-toggle="tab">Prepago</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                @endif
+                </div>
+            @endif
             <!--/div-->
             @if ($titlePage != 'dashboard' && $titlePage != 'Estaciones')
                 @isset($station)
@@ -41,8 +42,8 @@
                         <div class="nav-tabs-wrapper">
                             <ul class="nav" data-tabs="tabs">
                                 <!--li class="nav-item">
-                                    <a class="nav-link" href="#home" data-toggle="tab">General</a>
-                                </li-->
+                                                    <a class="nav-link" href="#home" data-toggle="tab">General</a>
+                                                </li-->
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#updates" data-toggle="tab">Lealtad</a>
                                 </li>
@@ -55,7 +56,7 @@
                 @endisset
             @endif
 
-           
+
 
         </div>
         <div class="row mt-3">
@@ -69,7 +70,7 @@
             </div>
             <div class="col-6 pl-0 navbar-toggler">
                 @if ($titlePage == 'dashboard')
-               
+
                     <div class="nav-tabs-navigation alinearTab">
                         <div class="nav-tabs-wrapper">
                             <ul class="nav" data-tabs="tabs">
@@ -85,13 +86,13 @@
                             </ul>
                         </div>
                     </div>
-                
+
                 @endif
             </div>
         </div>
-        
 
-       
+
+
 
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
@@ -113,7 +114,7 @@
                         </li>
                     </ul>
                 </li-->
-                
+
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <div class="photo">

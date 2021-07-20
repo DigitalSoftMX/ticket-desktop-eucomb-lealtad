@@ -112,6 +112,8 @@ Route::group(['middleware' => 'auth'], function () {
 //rutas para los administradores
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('admins', 'Web\AdminController');
+	Route::resource('invited', 'Web\InvitedController', ['only' => ['index', 'show']]);
+	Route::get('getsales/{station}/{month}/{invited?}', 'Web\InvitedController@getSales')->name('getsales');
 	Route::get('company', 'Web\AdminController@editCompany')->name('company');
 	Route::patch('company/{company}', 'Web\AdminController@updateCompany')->name('company.update');
 	Route::post('admins/schedules', 'Web\AdminController@getSchedules')->name('admins.schedules');

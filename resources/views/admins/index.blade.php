@@ -44,16 +44,20 @@
                                                 <td>{{ $admin->created_at ? $admin->created_at->format('d/m/Y') : '-' }}
                                                 </td>
                                                 <td class="td-actions text-right">
+                                                    <a rel="tooltip" class="btn btn-info btn-icon btn-link"
+                                                        href="{{ route('invited.show', $admin) }}">
+                                                        <i class="tim-icons icon-zoom-split"></i>
+                                                    </a>
                                                     @if ($admin->roles[0]->id != auth()->user()->roles[0]->id)
-                                                        <a rel="tooltip" class="btn btn-success btn-link"
-                                                            href="{{ route('admins.edit', $admin) }}"
-                                                            data-original-title="" title="">
-                                                            <i class="tim-icons icon-pencil"></i>
-                                                        </a>
                                                         <form action="{{ route('admins.destroy', $admin) }}"
                                                             method="post">
                                                             @csrf
                                                             @method('delete')
+                                                            <a rel="tooltip" class="btn btn-success btn-link"
+                                                                href="{{ route('admins.edit', $admin) }}"
+                                                                data-original-title="" title="">
+                                                                <i class="tim-icons icon-pencil"></i>
+                                                            </a>
                                                             <button type="button" class="btn btn-danger btn-link"
                                                                 data-original-title="" title=""
                                                                 onclick="confirm('{{ __('¿Estás seguro de que deseas eliminar este administrador?') }}') ? this.parentElement.submit() : ''">
