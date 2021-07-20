@@ -76,6 +76,10 @@
                                                 </td>
                                                 <td>{{ $dispatcher->user->created_at->format('d/m/Y') }}</td>
                                                 <td class="td-actions text-right">
+                                                    <a rel="tooltip" class="btn btn-info btn-icon btn-link"
+                                                        href="{{ route('invited.show', $dispatcher->user) }}">
+                                                        <i class="tim-icons icon-zoom-split"></i>
+                                                    </a>
                                                     @if ($station->id != null)
                                                         <a rel="tooltip" class="btn btn-success btn-link"
                                                             href="{{ route('dispatcher.edit', [$station, $dispatcher]) }}"
