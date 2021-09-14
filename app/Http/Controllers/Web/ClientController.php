@@ -117,7 +117,7 @@ class ClientController extends Controller
                 array_push($arrayPointsAdded, $data);
             }
         }
-        if (($exchanges = Exchange::where([['client_id', $client->id], ['status', '!=', 14]])->whereDate('created_at', '>=', $request->inicial)->whereDate('created_at', '<=', $request->final)->get()) != null) {
+        if (($exchanges = Exchange::where([['client_id', $client->id], ['status', 14]])->whereDate('created_at', '>=', $request->inicial)->whereDate('created_at', '<=', $request->final)->get()) != null) {
             foreach ($exchanges as $pS) {
                 $data['exchange'] = $pS->exchange;
                 $data['station'] = $pS->station->name;
