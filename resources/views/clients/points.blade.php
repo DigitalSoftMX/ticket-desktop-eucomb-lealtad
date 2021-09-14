@@ -111,6 +111,52 @@
             init_calendar('input-date-ini', '01-01-2018', '07-07-2025');
             init_calendar('input-date-end', '01-01-2018', '07-07-2025');
         });
-
+        // Ajax para el historial de puntos
+        $("#points").click(function() {
+            $.ajax({
+                url: "{{ route('history.points') }}",
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    'client_id': $('#input-client_id').val(),
+                    'inicial': $('#input-date-ini').val(),
+                    'final': $('#input-date-end').val()
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    demo.showNotification('top', 'center', 'Consulta realizada correctamente.',
+                        'tim-icons icon-bell-55');
+                    destruir_table("datatable_1");
+                    destruir_table("datatable_2");
+                    $('#datatable_1').find('tbody').empty();
+                    $('#datatable_2').find('tbody').empty();
+                    for (i = 0; i < response.pointsadded.length; i++) {
+                        $("#datatable_1").find('tbody').append(
+                            '<tr><td>' + response.pointsadded[i].sale + '</td><td>' + response
+                            .pointsadded[i].station + '</td><td>' + response.pointsadded[i].liters +
+                            '</td><td>' + response.pointsadded[i].points + '</td><td>' + response
+                            .pointsadded[i].concepto + '</td><td>' + response.pointsadded[i].date +
+                            '</td></tr>'
+                        );
+                    }
+                    for (i = 0; i < response.pointsubstracted.length; i++) {
+                        $("#datatable_2").find('tbody').append(
+                            '<tr><td>' + response.pointsubstracted[i].exchange + '</td><td>' +
+                            response.pointsubstracted[i].station + '</td><td>' + response
+                            .pointsubstracted[i].status + '</td><td>' + response.pointsubstracted[i]
+                            .points + '</td><td>' + response.pointsubstracted[i].type +
+                            '</td><td>' + response.pointsubstracted[i].date + '</td></tr>'
+                        );
+                    }
+                    iniciar_date('datatable_1');
+                    iniciar_date('datatable_2');
+                },
+                error: function(error) {
+                    demo.showNotification('top', 'center', error, 'tim-icons icon-bell-55');
+                }
+            });
+        });
     </script>
 @endpush
