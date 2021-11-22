@@ -16,7 +16,7 @@ class Client extends Model
     // Relacion con los pagos del cliente
     public function deposits()
     {
-        return $this->hasMany(UserHistoryDeposit::class);
+        return $this->hasMany(Deposit::class);
     }
     // Relacion con los pagos del cliente
     public function shareds()

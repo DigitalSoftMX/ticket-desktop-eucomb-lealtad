@@ -4,11 +4,9 @@ namespace App\Web;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserHistoryDeposit extends Model
+class Deposit extends Model
 {
-    /* Accediendo a la tabla deposit */
-    protected $table = 'deposits';
-    protected $fillable = ['client_id', 'balance', 'image_payment', 'station_id', 'status'];
+    protected $fillable = ['client_id', 'balance', 'image_payment', 'station_id', 'status', 'deny'];
     // Conexion con el usuario cliente
     public function client()
     {

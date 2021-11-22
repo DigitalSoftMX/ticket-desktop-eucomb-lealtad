@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminRequest;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\UserRequest;
 use App\Role;
@@ -16,7 +15,6 @@ use App\Web\Station;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 
 class AdminController extends Controller
 {

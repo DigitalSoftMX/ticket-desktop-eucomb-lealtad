@@ -17,7 +17,7 @@ class Station extends Model
     // Realacion con los depositos de los clientes
     public function deposits()
     {
-        return $this->hasMany(UserHistoryDeposit::class);
+        return $this->hasMany(Deposit::class);
     }
     // Relacion con los despachadores
     public function dispatchers()

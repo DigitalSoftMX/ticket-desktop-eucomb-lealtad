@@ -25,10 +25,10 @@
                                     <div class="col-12 text-right">
                                         @if (isset($station))
                                             <a href="{{ route('balances.create', $station) }}"
-                                                class="btn btn-sm btn-primary">{{ __('Realizar Abono') }}</a>
+                                                class="btn btn-sm btn-success">{{ __('Realizar Abono') }}</a>
                                         @else
                                             <a href="{{ route('balance.create') }}"
-                                                class="btn btn-sm btn-primary">{{ __('Realizar Abono') }}</a>
+                                                class="btn btn-sm btn-success">{{ __('Realizar Abono') }}</a>
                                         @endif
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                         <table
                                             class="table dataTable table-sm table-no-bordered table-hover white-datatables"
                                             cellspacing="0" width="100%" id="usuarios">
-                                            @include('partials._balances',[$status=1])
+                                            @include('balance.balances',[$status=1])
                                         </table>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                         <table
                                             class="table dataTable table-sm table-no-bordered table-hover white-datatables"
                                             cellspacing="0" width="100%" id="autorizados">
-                                            @include('partials._balances',[$status=2])
+                                            @include('balance.balances',[$status=2])
                                         </table>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                                         <table
                                             class="table dataTable table-sm table-no-bordered table-hover white-datatables"
                                             cellspacing="0" width="100%" id="denegados">
-                                            @include('partials._balances',[$status=3])
+                                            @include('balance.balances',[$status=3])
                                         </table>
                                     </div>
                                 </div>
@@ -99,6 +99,5 @@
         function imagen_mostrar(img) {
             $("#img_mos").attr("src", img);
         }
-
     </script>
 @endpush

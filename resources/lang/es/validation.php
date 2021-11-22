@@ -197,6 +197,7 @@ return [
         'station' => 'imagen',
         'abrev' => 'abreviación',
         'image_payment' => 'imagen',
-        'station_id' => 'estación'
+        'station_id' => 'estación',
+        'deny' => 'motivo'
     ],
 ];

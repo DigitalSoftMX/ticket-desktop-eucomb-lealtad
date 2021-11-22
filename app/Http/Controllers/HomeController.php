@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Web\Station;
 use App\Web\Client;
-use App\Web\UserHistoryDeposit;
+use App\Web\Deposit;
 use App\Web\Exchange;
 use App\Web\Ticket;
 use App\Web\SalesQr;
@@ -114,7 +114,7 @@ class HomeController extends Controller
         // modelos
         $stations = Station::all();
 
-        $abonos_totales = UserHistoryDeposit::where('status', 1)->count();
+        $abonos_totales = Deposit::where('status', 1)->count();
 
         // conseguimos el total de clientes en la aplicación
         $clientes_totales = Client::all()->count();
