@@ -16,7 +16,7 @@ class Client extends Model
     // Relacion con los pagos del cliente
     public function deposits()
     {
-        return $this->hasMany(UserHistoryDeposit::class);
+        return $this->hasMany(Deposit::class);
     }
     // Relacion con los pagos del cliente
     public function shareds()
@@ -32,7 +32,7 @@ class Client extends Model
     // Relacion con los pagos del cliente
     public function payments()
     {
-        return $this->hasMany(DispatcherHistoryPayment::class);
+        return $this->hasMany(Sale::class);
     }
     // Relacion con los canjes
     public function exchanges()

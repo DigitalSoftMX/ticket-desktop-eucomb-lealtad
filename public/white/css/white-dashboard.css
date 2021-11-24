@@ -2315,7 +2315,7 @@ textarea.form-control {
   padding: 11px 40px;
   font-size: 0.875rem;
   line-height: 1.35em;
-  border-radius: 0.25rem;
+  border-radius: 25px !important;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -4761,7 +4761,8 @@ a.nav-link.active{
   background-color: #ffffff;
   background-clip: border-box;
   border: 0.0625rem solid rgba(34, 42, 66, 0.05);
-  border-radius: 0.2857rem;
+  border-radius: 15px;
+  box-shadow: 15px 15px 25px #D0D0D0 !important;
 }
 
 .card>hr {

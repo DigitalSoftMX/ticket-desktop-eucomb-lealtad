@@ -12,12 +12,12 @@ class Station extends Model
     // Conexion con las ventas
     public function sales()
     {
-        return $this->hasMany(DispatcherHistoryPayment::class);
+        return $this->hasMany(Sale::class);
     }
     // Realacion con los depositos de los clientes
     public function deposits()
     {
-        return $this->hasMany(UserHistoryDeposit::class);
+        return $this->hasMany(Deposit::class);
     }
     // Relacion con los despachadores
     public function dispatchers()

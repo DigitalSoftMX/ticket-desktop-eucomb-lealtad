@@ -26,7 +26,7 @@
                                     </div>
                                     <input type="email" name="email"
                                         class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} bg-white"
-                                        placeholder="{{ __('Email') }}" value="{{ old('email') }}">
+                                        placeholder="{{ __('Correo electrónico') }}" value="{{ old('email') }}">
                                     @include('alerts.feedback', ['field' => 'email'])
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                                             <i class="tim-icons icon-lock-circle"></i>
                                         </div>
                                     </div>
-                                    <input type="password" placeholder="{{ __('Password') }}" name="password"
+                                    <input type="password" placeholder="{{ __('Contraseña') }}" name="password"
                                         class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} bg-white"
                                         value="{{ old('password') }}">
                                     @include('alerts.feedback', ['field' => 'password'])

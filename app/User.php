@@ -7,7 +7,7 @@ use App\Web\Client;
 use App\Web\Dispatcher;
 use App\Web\Exchange;
 use App\Web\SalesQr;
-use App\Web\UserHistoryDeposit;
+use App\Web\Deposit;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -47,7 +47,7 @@ class User extends Authenticatable
     }
     public function deposits()
     {
-        return $this->hasMany(UserHistoryDeposit::class, 'reference', 'username');
+        return $this->hasMany(Deposit::class, 'reference', 'username');
     }
     // Relacion con los clientes para el caso de administrador ventas
     public function references()

@@ -4,13 +4,8 @@ namespace App\Web;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DispatcherHistoryPayment extends Model
+class Sale extends Model
 {
-    // Accediendo a la base de datos por default del proyecto
-    protected $connection = 'mysql';
-    /* Accediendo a la tabla ventas */
-    protected $table = 'sales';
-    // Enlace con el tipo de gasolina
     public function gasoline()
     {
         return $this->belongsTo(Gasoline::class);

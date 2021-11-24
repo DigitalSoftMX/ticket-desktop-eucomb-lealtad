@@ -1,24 +1,9 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 	return view('auth.login');
-});
-
-Route::get('/graphics', function () {
-	return view('Graphics.graphics');
 });
 
 Route::get('/logout', function () {
@@ -26,75 +11,14 @@ Route::get('/logout', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
-	Route::get('litersMountYears', 'HomeController@litersMountYears')->name('litersMountYears')->middleware('auth');
-	Route::get('estacion/{id}', 'HomeController@show')->name('estacion')->middleware('auth');
+	Route::get('/', 'HomeController@index')->name('home');
+	Route::get('litersMountYears', 'HomeController@litersMountYears')->name('litersMountYears');
+	Route::get('estacion/{id}', 'HomeController@show')->name('estacion');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-
-
-Route::group(['middleware' => 'auth'], function () {
-	Route::get('table-list', function () {
-		return view('pages.table_list');
-	})->name('table');
-
-	Route::get('typography', function () {
-		return view('pages.typography');
-	})->name('typography');
-
-	Route::get('icons', function () {
-		return view('pages.icons');
-	})->name('icons');
-
-	Route::get('map', function () {
-		return view('pages.map');
-	})->name('map');
-
-	Route::get('notifications', function () {
-		return view('pages.notifications');
-	})->name('notifications');
-
-	Route::get('rtl-support', function () {
-		return view('pages.language');
-	})->name('language');
-
-	Route::get('upgrade', function () {
-		return view('pages.upgrade');
-	})->name('upgrade');
-});
-
-Route::group(['middleware' => 'auth'], function () {
-	Route::get('table-list', function () {
-		return view('pages.table_list');
-	})->name('table');
-
-	Route::get('typography', function () {
-		return view('pages.typography');
-	})->name('typography');
-
-	Route::get('icons', function () {
-		return view('pages.icons');
-	})->name('icons');
-
-	Route::get('map', function () {
-		return view('pages.map');
-	})->name('map');
-
-	Route::get('notifications', function () {
-		return view('pages.notifications');
-	})->name('notifications');
-
-	Route::get('rtl-support', function () {
-		return view('pages.language');
-	})->name('language');
-
-	Route::get('upgrade', function () {
-		return view('pages.upgrade');
-	})->name('upgrade');
-});
 
 Route::group(['middleware' => 'auth'], function () {
 	// ruta que ya no se usa
@@ -126,11 +50,14 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('balance', 'Web\BalanceController');
 	Route::post('balance/accept/{deposit}', 'Web\BalanceController@acceptBalance')->name('balance.accept');
-	Route::post('balance/denny/{deposit}', 'Web\BalanceController@denyBalance')->name('balance.denny');
+	Route::post('balance/denny/{deposit}/{estado?}', 'Web\BalanceController@denyBalance')->name('balance.denny');
 });
 
+// Historial de movimientos
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user_history', 'Web\UserHistoryController');
+	Route::get('getdispatchers/{station}', 'Web\UserHistoryController@getDispatchers')->name('getdispatchers');
+	Route::post('gethistory', 'Web\UserHistoryController@getHistory')->name('gethistory');
 });
 
 // Rutas para las estaciones
@@ -160,14 +87,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('references/dropreference/{user}/{reference}', 'Web\ReferenceController@dropReference')->name('dropreference');
 });
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('icons', ['as' => 'pages.icons', 'uses' => 'PageController@icons']);
-	Route::get('maps', ['as' => 'pages.maps', 'uses' => 'PageController@maps']);
-	Route::get('notifications', ['as' => 'pages.notifications', 'uses' => 'PageController@notifications']);
-	Route::get('rtl', ['as' => 'pages.rtl', 'uses' => 'PageController@rtl']);
-	Route::get('tables', ['as' => 'pages.tables', 'uses' => 'PageController@tables']);
-	Route::get('typography', ['as' => 'pages.typography', 'uses' => 'PageController@typography']);
-	Route::get('upgrade', ['as' => 'pages.upgrade', 'uses' => 'PageController@upgrade']);
+	Route::resource('companies', 'Web\CompanyController');
 });

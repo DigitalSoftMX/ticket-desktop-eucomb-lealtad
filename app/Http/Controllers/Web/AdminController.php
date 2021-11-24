@@ -3,20 +3,18 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminRequest;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\UserRequest;
 use App\Role;
 use App\User;
 use App\Web\AdminStation;
-use App\Web\Empresa;
+use App\Web\Company;
 use App\Web\Exchange;
 use App\Web\SalesQr;
 use App\Web\Station;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -105,9 +103,9 @@ class AdminController extends Controller
         $request->user()->authorizeRoles(['admin_master', 'admin_eucomb', 'admin_sales']);
 
         // array meses en español
-        $array_meses_espanol = [ "Jan" => "Enero","Feb" => "Febrero","Mar" => "Marzo","Apr" => "Abril","May" => "Mayo","Jun" => "Junio","Jul" => "Julio","Aug" => "Agosto","Sep" => "Septiembre","Oct" => "Octubre","Nov" => "Noviembre","Dec" => "Diciembre"];
+        $array_meses_espanol = ["Jan" => "Enero", "Feb" => "Febrero", "Mar" => "Marzo", "Apr" => "Abril", "May" => "Mayo", "Jun" => "Junio", "Jul" => "Julio", "Aug" => "Agosto", "Sep" => "Septiembre", "Oct" => "Octubre", "Nov" => "Noviembre", "Dec" => "Diciembre"];
 
-        $array_meses_espanol_corto = [ "Jan" => "Ene", "Feb" => "Feb", "Mar" => "Mar", "Apr" => "Abr", "May" => "May", "Jun" => "Jun", "Jul" => "Jul", "Aug" => "Ago", "Sep" => "Sep", "Oct" => "Oct", "Nov" => "Nov", "Dec" => "Dic"];
+        $array_meses_espanol_corto = ["Jan" => "Ene", "Feb" => "Feb", "Mar" => "Mar", "Apr" => "Abr", "May" => "May", "Jun" => "Jun", "Jul" => "Jul", "Aug" => "Ago", "Sep" => "Sep", "Oct" => "Oct", "Nov" => "Nov", "Dec" => "Dic"];
         // array para los meses
         $array_meses = [];
         // array para los meses
@@ -128,7 +126,7 @@ class AdminController extends Controller
         array_unshift($meses_hasta_el_actual, date("Y-m", mktime(0, 0, 0, date("m"), 28, date("Y"))));
         array_unshift($array_meses,  $array_meses_espanol_corto[strval(date("M", mktime(0, 0, 0, date("m"), 28, date("Y"))))]);
         array_unshift($array_meses_largos,  $array_meses_espanol[strval(date("M", mktime(0, 0, 0, date("m"), 28, date("Y"))))]);
-        
+
 
         $meses_hasta_el_actual = array_reverse($meses_hasta_el_actual);
         $array_meses = array_reverse($array_meses);
@@ -149,27 +147,27 @@ class AdminController extends Controller
 
         for ($mes = 0; $mes <= 11; $mes++) {
             foreach ($stations as $valor) {
-                array_push($stations_mouths,  $request->user()->salesqrs()->where([['station_id', $valor->id],['created_at', 'like', '%' . $meses_hasta_el_actual[$mes] . '%']])->sum('liters'));
-                array_push($stations_mouths_tickets, $request->user()->salesqrs()->Where([['station_id', $valor->id],['created_at', 'like', '%' . $meses_hasta_el_actual[$mes] . '%']])->count());
-                array_push($stations_mouths_exchage, $request->user()->exchanges()->Where([['station_id', $valor->id],['status', 14],['created_at', 'like', '%' . $meses_hasta_el_actual[$mes] . '%']])->count());
+                array_push($stations_mouths,  $request->user()->salesqrs()->where([['station_id', $valor->id], ['created_at', 'like', '%' . $meses_hasta_el_actual[$mes] . '%']])->sum('liters'));
+                array_push($stations_mouths_tickets, $request->user()->salesqrs()->Where([['station_id', $valor->id], ['created_at', 'like', '%' . $meses_hasta_el_actual[$mes] . '%']])->count());
+                array_push($stations_mouths_exchage, $request->user()->exchanges()->Where([['station_id', $valor->id], ['status', 14], ['created_at', 'like', '%' . $meses_hasta_el_actual[$mes] . '%']])->count());
             }
         }
 
-        for($ai=0; $ai<4; $ai++){
+        for ($ai = 0; $ai < 4; $ai++) {
             foreach ($stations as $valor) {
-                array_push($stations_year, $request->user()->salesqrs()->where([['station_id', $valor->id],['created_at', 'like', '%' . $year_select[$ai] . '%']])->sum('liters'));
+                array_push($stations_year, $request->user()->salesqrs()->where([['station_id', $valor->id], ['created_at', 'like', '%' . $year_select[$ai] . '%']])->sum('liters'));
             }
         }
 
         $dashboar['liters_mouths'] = array_reverse(array_chunk($stations_mouths, 8));
         $dashboar['stations_mouths_tickets'] = array_reverse(array_chunk($stations_mouths_tickets, 8));
         $dashboar['stations_mouths_exchage'] = array_reverse(array_chunk($stations_mouths_exchage, 8));
-        $dashboar['liters_year'] = array_chunk($stations_year,8);
+        $dashboar['liters_year'] = array_chunk($stations_year, 8);
 
         //dd( $dashboar['liters_mouths']);
 
 
-        return view('admins.show',['userInfoSale' => $request,'estacion_dashboard' => $request->estacion_dashboard, 'stations' => $stations, 'year_select' => $year_select, 'array_meses' => $array_meses, 'array_meses_largos' => $array_meses_largos, 'dashboar' =>  $dashboar]);
+        return view('admins.show', ['userInfoSale' => $request, 'estacion_dashboard' => $request->estacion_dashboard, 'stations' => $stations, 'year_select' => $year_select, 'array_meses' => $array_meses, 'array_meses_largos' => $array_meses_largos, 'dashboar' =>  $dashboar]);
     }
 
     /**
@@ -221,20 +219,19 @@ class AdminController extends Controller
     public function editCompany(Request $request)
     {
         $request->user()->authorizeRoles(['admin_master', 'admin_eucomb']);
-        return view('admins.company', ['company' => Empresa::find(1)]);
+        return view('admins.company', ['company' => Company::find(1)]);
     }
     // Metodo para actualizar la informacion de la empresa
-    public function updateCompany(CompanyRequest $request, Empresa $company)
+    public function updateCompany(CompanyRequest $request, Company $company)
     {
         $request->user()->authorizeRoles(['admin_master', 'admin_eucomb']);
         if ($request->file('logo')) {
-            if (File::exists(public_path() . $company->imglogo)) {
+            if (File::exists(public_path() . $company->imglogo))
                 File::delete(public_path() . $company->imglogo);
-            }
             $logo = $request->file('logo')->store('public');
-            $request->merge(['imglogo' => Storage::url($logo)]);
+            $request->merge(['image' => Storage::url($logo)]);
         }
-        $company->update($request->all());
+        $company->update($request->only(['name', 'address', 'phone', 'points', 'double_points', 'image']));
         return redirect()->back()->withStatus(__('Datos guardados correctamente'));
     }
     // Método para el historial de puntos y canjes
@@ -271,13 +268,11 @@ class AdminController extends Controller
     private function getQuery($request, $type)
     {
         $query = array();
-        if ($request->folio != null) {
+        if ($request->folio != null)
             array_push($query, ($type == 'exchange') ? [$type => request('folio'), 'status' => 14] : [$type => request('folio')]);
-        }
         if ($request->membresia != null) {
-            if (($user = User::where('username', $request->membresia)->first()) != null) {
+            if (($user = User::where('username', $request->membresia)->first()) != null)
                 array_push($query, ($type == 'exchange') ? ['client_id' => $user->client->id, 'status' => 14] : ['client_id' => $user->client->id]);
-            }
         }
         return $query;
     }
