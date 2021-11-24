@@ -201,8 +201,10 @@ class HomeController extends Controller
         }
 
 
-        $dashboar['tickets'] = Ticket::where('descrip', 'like', '%sumados%')->count() + SalesQr::all()->count();
-        $dashboar['liters'] = SalesQr::all()->sum('liters') + Ticket::where('descrip', 'like', '%sumados%')->sum('litro');
+        /* $dashboar['tickets'] = Ticket::where('descrip', 'like', '%sumados%')->count() + SalesQr::all()->count();
+        $dashboar['liters'] = SalesQr::all()->sum('liters') + Ticket::where('descrip', 'like', '%sumados%')->sum('litro'); */
+        $dashboar['tickets'] = Ticket::where('descrip', 'like', '%sumados%')->count();
+        $dashboar['liters'] = Ticket::where('descrip', 'like', '%sumados%')->sum('litro');
         $dashboar['exchange'] = Exchange::where('status', 14)->count();
 
         // año select
