@@ -198,6 +198,7 @@ return [
         'abrev' => 'abreviación',
         'image_payment' => 'imagen',
         'station_id' => 'estación',
-        'deny' => 'motivo'
+        'deny' => 'motivo',
+        'double_points' => 'puntos dobles'
     ],
 ];

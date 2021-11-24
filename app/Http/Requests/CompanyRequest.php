@@ -24,21 +24,11 @@ class CompanyRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => [
-                'required', 'min:3'
-            ],
-            'direccion' => [
-                'required', 'min:3'
-            ],
-            'telefono' => [
-                'required', 'min:10'
-            ],
-            'points' => [
-                'required',
-            ],
-            'double_points' => [
-                'required',
-            ],
+            'name' => 'required|min:3',
+            'address' => 'required|min:3',
+            'phone' => 'required|min:10',
+            'points' => 'required|numeric|min:1',
+            'double_points' => 'required|integer|min:1|max:2',
             'logo' => 'image'
         ];
     }

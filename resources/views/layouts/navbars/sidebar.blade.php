@@ -5,23 +5,30 @@
             <a href="#" class="simple-text logo-normal">{{ auth()->user()->name }}
                 {{ auth()->user()->first_surname }}</a>
         </div>
-        <ul class="nav mb-5">
+        <ul class="nav">
             @for ($i = 0; $i < count($menus); $i++)
                 @foreach ($menus[$i] as $menu)
-                    @if ($menu->desplegable == 0)
-                        <li class="nav-item{{ $pageSlug == $menu->name_modulo ? ' active' : '' }}">
-                            <a class="nav-link" href="{{ url($menu->ruta) }}">
-                                @if ($menu->id_role == 1)
-                                    <i class="material-icons-outlined">{{ $menu->icono }}</i>
+                    <li class="nav-item {{ $pageSlug == $menu->name_modulo ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url($menu->ruta) }}">
+                            @if ($menu->id_role == 1)
+                                @if ($menu->desplegable)
+                                    <i class="fas fa-{{ $menu->icono }}"></i>
                                 @else
-                                    <i class="tim-icons {{ $menu->icono }}"></i>
+                                    <i class="material-icons-outlined">{{ $menu->icono }}</i>
                                 @endif
-                                <p>{{ __($menu->name_modulo) }}</p>
-                            </a>
-                        </li>
-                    @endif
+                            @else
+                                <i class="tim-icons {{ $menu->icono }}"></i>
+                            @endif
+                            <p>{{ __($menu->name_modulo) }}</p>
+                        </a>
+                    </li>
                 @endforeach
             @endfor
+            <li class="nav-item mt-5 mb-5">
+                <a class="nav-link">
+                    <i class="material-icons"></i>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

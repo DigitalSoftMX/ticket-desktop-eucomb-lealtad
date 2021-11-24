@@ -32,7 +32,7 @@ class Client extends Model
     // Relacion con los pagos del cliente
     public function payments()
     {
-        return $this->hasMany(DispatcherHistoryPayment::class);
+        return $this->hasMany(Sale::class);
     }
     // Relacion con los canjes
     public function exchanges()

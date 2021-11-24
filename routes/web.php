@@ -53,8 +53,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('balance/denny/{deposit}/{estado?}', 'Web\BalanceController@denyBalance')->name('balance.denny');
 });
 
+// Historial de movimientos
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user_history', 'Web\UserHistoryController');
+	Route::get('getdispatchers/{station}', 'Web\UserHistoryController@getDispatchers')->name('getdispatchers');
+	Route::post('gethistory', 'Web\UserHistoryController@getHistory')->name('gethistory');
 });
 
 // Rutas para las estaciones
@@ -85,5 +88,5 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-	
+	Route::resource('companies', 'Web\CompanyController');
 });
