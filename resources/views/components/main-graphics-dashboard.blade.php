@@ -72,7 +72,7 @@
         var php_variable = document.getElementById("select_dash_1").value;
         const total = liters_yearM[php_variable].reduce((a, b) => a + b);
         document.getElementById("ventasTotalH4").innerHTML = "LITROS TOTALES VENDIDOS: "+ total.toFixed(2)+"L";
-        var chart_dataL = chart[php_variable];
+        var chart_dataL = liters_yearM[php_variable];
         var data = myChartDataL.config.data;
         data.datasets[0].data = chart_dataL;
         myChartDataL.update();
