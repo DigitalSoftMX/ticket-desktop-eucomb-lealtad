@@ -231,7 +231,7 @@ class AdminController extends Controller
             $logo = $request->file('logo')->store('public');
             $request->merge(['image' => Storage::url($logo)]);
         }
-        $company->update($request->only(['name', 'address', 'phone', 'points', 'double_points', 'image']));
+        $company->update($request->only(['name', 'address', 'phone', 'points', 'double_points', 'image', 'terms_and_conditions']));
         return redirect()->back()->withStatus(__('Datos guardados correctamente'));
     }
     // Método para el historial de puntos y canjes

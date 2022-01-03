@@ -104,11 +104,24 @@
                                             class="selectpicker show-menu-arrow{{ $errors->has('double_points') ? ' is-invalid' : '' }}"
                                             data-style="btn-success" data-width="100%">
                                             <option disabled>{{ __('Elija una opción') }}</option>
-                                            <option value="1" @if ($company->double_points) selected @endif>{{ __('Puntos normales') }}</option>
+                                            <option value="1" @if ($company->double_points) selected @endif>{{ __('Puntos normales') }}
+                                            </option>
                                             <option value="2" @if ($company->double_points == 2) selected @endif>{{ __('Puntos dobles') }}</option>
                                         </select>
                                     </div>
+                                    <div
+                                        class="form-group{{ $errors->has('terms_and_conditions') ? ' has-danger' : '' }} col-sm-6">
+                                        <textarea class="form-control" name="terms_and_conditions"
+                                            id="input-terms_and_conditions" cols="30" rows="10" aria-required="true"
+                                            aria-describedby="terms_and_conditions"
+                                            placeholder="Escribe los términos y condiciones para la suma de puntos">{{ old('terms_and_conditions', $company->terms_and_conditions ?? '') }}</textarea>
+                                        @if ($errors->has('terms_and_conditions'))
+                                            <span id="terms_and_conditions-error" class="error text-danger"
+                                                for="input-terms_and_conditions">{{ $errors->first('terms_and_conditions') }}</span>
+                                        @endif
+                                    </div>
                                 </div>
+
                                 <div class="card-footer text-center mt-5">
                                     <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
                                 </div>

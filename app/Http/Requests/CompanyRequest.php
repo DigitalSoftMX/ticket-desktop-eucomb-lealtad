@@ -29,7 +29,8 @@ class CompanyRequest extends FormRequest
             'phone' => 'required|min:10',
             'points' => 'required|numeric|min:1',
             'double_points' => 'required|integer|min:1|max:2',
-            'logo' => 'image'
+            'logo' => 'image',
+            'terms_and_conditions' => 'required|string|min:3'
         ];
     }
 }

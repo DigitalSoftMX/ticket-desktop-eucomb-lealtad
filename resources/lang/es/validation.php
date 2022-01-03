@@ -199,6 +199,7 @@ return [
         'image_payment' => 'imagen',
         'station_id' => 'estación',
         'deny' => 'motivo',
-        'double_points' => 'puntos dobles'
+        'double_points' => 'puntos dobles',
+        'terms_and_conditions' => 'términos y condiciones'
     ],
 ];
