@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SalesQr extends Model
 {
+    protected $table='sales_qrs';
     // Relacion con los clientes
     public function client()
     {
