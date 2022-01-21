@@ -56,7 +56,7 @@ class BalanceController extends Controller
         $notification = new Actions();
         $notification->sendNotification(
             $deposit->client->ids,
-            'Su depósito ha sido aprobado',
+            'Abono denegado',
             $estado ?
                 'Su abono se colocó al estado pendiente' :
                 'Su abono ha sido denegado',
