@@ -17,6 +17,7 @@ class Actions
                     'body' => $status
                 ),
                 "priority" => "high",
+                "sound" => "default",
                 'data' => array(
                     'message' => $message ?? '',
                 ),
