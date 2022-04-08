@@ -58,8 +58,8 @@ class BalanceController extends Controller
             $deposit->client->ids,
             'Abono denegado',
             $estado ?
-                'Su abono se colocó al estado pendiente' :
-                'Su abono ha sido denegado',
+                $request->deny :
+                $request->deny,
             $request->deny
         );
         if ($estado) {
