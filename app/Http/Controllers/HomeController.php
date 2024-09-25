@@ -112,7 +112,7 @@ class HomeController extends Controller
         $litros_mes_pasado = 0;
         $litros_mes_actual = 0;
         // modelos
-        $stations = Station::all();
+        $stations = Station::where('id', '!=', 9)->get();
 
         $abonos_totales = Deposit::where('status', 1)->count();
 
