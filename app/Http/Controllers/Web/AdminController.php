@@ -111,7 +111,7 @@ class AdminController extends Controller
         // array para los meses
         $array_meses_largos = [];
 
-        $stations = Station::all();
+        $stations = Station::where('id', '!=', 9)->get();
         $dashboar = array();
 
         $meses_hasta_el_actual = [];
